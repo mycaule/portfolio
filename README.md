@@ -24,6 +24,7 @@ Changes and improvements are welcome! Feel free to fork and open a pull request 
 
 #### Linting and Testing
 ```
+npm install
 npm test
 ```
 
@@ -36,7 +37,7 @@ Runs a local webserver at http:localhost:1234
 
 #### Production
 ```
-parcel build app.js -d docs
+parcel build app.js
 git push
 ```
 
@@ -60,4 +61,3 @@ Regenerate the build and deploy to GitHub pages on master /docs folder.
 * [Mavo](https://mavo.io/)
 * [Baidu Echarts](https://github.com/ecomfe/echarts)
 * [Bloomberg Watchlist](https://www.bloomberg.com/markets/watchlist)
-w
