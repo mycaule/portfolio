@@ -57,7 +57,7 @@ Regenerate the build and deploy to GitHub pages on master /docs folder.
 
 ## References
 
-* [Coinbase](https://coinbase.com)
+* [Coinbase API Reference](https://developers.coinbase.com/api/v2#data-endpoints)
 * [Mavo](https://mavo.io/)
 * [Baidu Echarts](https://github.com/ecomfe/echarts)
 * [Bloomberg Watchlist](https://www.bloomberg.com/markets/watchlist)

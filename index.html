@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Bitcoin Watchlist</title>
+  <title>Watchlist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta property="fb:app_id" content="1968068840134141" />
   <meta property="og:url" content="https://mycaule.github.io/portfolo" />
@@ -41,21 +41,24 @@
     <input type="hidden" property="max52w" />
     <input type="hidden" property="performance2d"/>
     <select id="currencies" property="currency" mv-default="EUR"></select>
-    <p>
-    Current time:<br>
-    <time>[time($now)]</time>
-    </p>
-
-    <p>
-    Data as of:<br>
-    [checked_time]<br>
-    on [checked_date]<br>
-    </p>
-
     <h3>Insights</h3>
-    Total Value ([currency]): [sum(position1 * spot)]<br>
-    Day Gain ([currency]): [sum(position1 * (spot - price1))]<br>
-    Total Gain ([currency]): [sum(position1 * (spot - price1))]<br>
+    <table>
+      <thead>
+        <td>Total Value ([currency])</td>
+        <td>Day Gain ([currency])</td>
+        <td>Total Gain ([currency])</td>
+        <td>Data as of:</td>
+      </thead>
+      <tr>
+        <td>[sum(position1 * spot)]</td>
+        <td>[sum(position1 * (spot - price1))]</td>
+        <td>[sum(position1 * (spot - price1))]</td>
+        <td>
+          [checked_time]<br>
+          on [checked_date]
+        </td>
+      </tr>
+    </table>
 
     <h3>Summary</h3>
     <table>
@@ -86,6 +89,28 @@
     <table>
       <thead>
         <td>Symbol</td>
+        <td>LastPrice<br>Time (ET)</td>
+        <td>% Change<br>Net Change</td>
+        <td>Day Gain<br>([currency])</td>
+        <td>Cost<br>Avg Price</td>
+        <td>Net Gain<br>([currency])</td>
+        <td>Value<br>([currency])</td>
+      </thead>
+      <tr>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+        <td>...</td>
+      </tr>
+    </table>
+
+    <h3>Edit</h3>
+    <table>
+      <thead>
+        <td>Symbol</td>
         <td>Date</td>
         <td>Position</td>
         <td>Price</td>
@@ -99,11 +124,16 @@
     </table>
     [count(lot)] lots
 
-  </main>
-<hr>    <div id="myChart"></div>
-  <footer>
-    <div class="fb-comments" data-href="https://mycaule.github.io/portfolio" data-numposts="5"></div>
+    <h3>Watchlist news</h3>
+    ...
 
+    <h3>Benchmarks</h3>
+    ...
+
+    <div id="myChart"></div>
+  </main>
+
+  <footer>
     <div>
       <div class="fb-like" data-href="https://mycaule.github.io/portfolio" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
     </div>
