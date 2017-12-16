@@ -35,13 +35,70 @@
     <input type="hidden" property="spot" />
     <input type="hidden" property="checked_time" />
     <input type="hidden" property="checked_date" />
+    <input type="hidden" property="open1d" />
+    <input type="hidden" property="close1d" />
+    <input type="hidden" property="min52w" />
+    <input type="hidden" property="max52w" />
+    <input type="hidden" property="performance2d"/>
+    <select id="currencies" property="currency" mv-default="EUR"></select>
+    <p>
+    Current time:<br>
+    <time>[time($now)]</time>
+    </p>
 
+    <p>
     Data as of:<br>
     [checked_time]<br>
     on [checked_date]<br>
+    </p>
+
+    <h3>Insights</h3>
+    Total Value ([currency]): [sum(position1 * spot)]<br>
+    Day Gain ([currency]): [sum(position1 * (spot - price1))]<br>
+    Total Gain ([currency]): [sum(position1 * (spot - price1))]<br>
 
     <h3>Summary</h3>
-    1.00 <select property="base"></select> = [spot] <select property="currency"></select>
+    <table>
+      <thead>
+        <td>Symbol</td>
+        <td>Last Price<br>Time (ET)</td>
+        <td>2 Day Performance</td>
+        <td>%Change<br>Day Change</td>
+        <td>Volume<br>30 Day Average</td>
+        <td>52 Week Range</td>
+      </thead>
+      <tr>
+        <td><select id="bases" property="base" mv-default="BTC"></select></td>
+        <td>[spot]<br>[checked_date]</td>
+        <td>
+          <graph>
+          </graph>
+        </td>
+        <td>[(close1d/open1d-1)*100]%<br>[close1d-open1d]</td>
+        <td>/<br>/</td>
+        <td>
+          <input type="range" property="range52w" min="[min52w]" max="[max52w]" />
+        </td>
+      </tr>
+    </table>
+
+    <h3>Holdings</h3>
+    <table>
+      <thead>
+        <td>Symbol</td>
+        <td>Date</td>
+        <td>Position</td>
+        <td>Price</td>
+      </thead>
+      <tr property="lot" mv-mode="edit" mv-multiple>
+        <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
+        <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
+        <td><input type="number" property="position1" mv-default="1"/></td>
+        <td><input type="number" min="300" property="price1" mv-default="[spot]"/></td>
+      </tr>
+    </table>
+    [count(lot)] lots
+
   </main>
 <hr>    <div id="myChart"></div>
   <footer>
@@ -58,6 +115,7 @@
   </footer>
 
   <script src="https://dev.mavo.io/dist/mavo.es5.min.js"></script>
+  <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>
   <script src="dist/app.js"></script>
 </body>
 </html>
