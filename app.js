@@ -29,7 +29,7 @@ const initHTMLFields = (base, currency, basesRef, currenciesRef) => {
   bases.value = base
 }
 
-const drawChart = (base, currency) => {
+const drawChart = () => {
   const myChart = echarts.init($('#myChart'))
   console.log(myChart)
 

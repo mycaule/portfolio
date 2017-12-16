@@ -4,7 +4,7 @@
   "description": "Bloomberg watchlist clone for cryptocurrencies",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "parcel index.html",
     "test": "xo && nyc ava --verbose"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "devDependencies": {
     "ava": "^0.24.0",
     "nyc": "^11.3.0",
+    "parcel-bundler": "^1.2.0",
     "xo": "^0.18.2"
   },
   "xo": {

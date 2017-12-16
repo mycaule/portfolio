@@ -30,10 +30,10 @@ npm test
 
 #### Development
 ```
-parcel index.html
+npm start
 ```
 
-Runs a local webserver at http:localhost:1234
+Runs a local webserver at [http:localhost:1234](http:localhost:1234) with parcel bundler.
 
 #### Production
 ```
