@@ -27,11 +27,10 @@
   </script>
 
   <header>
-    <h2>Bitcoin Watchlist</h2>
+    <h2>Watchlist</h2>
   </header>
 
   <main>
-    <input type="hidden" value="[onchange(base, currency)]" property="_change" />
     <input type="hidden" property="spot" />
     <input type="hidden" property="checked_time" />
     <input type="hidden" property="checked_date" />
@@ -118,8 +117,8 @@
       <tr property="lot" mv-mode="edit" mv-multiple>
         <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
         <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
-        <td><input type="number" property="position1" mv-default="1"/></td>
-        <td><input type="number" min="300" property="price1" mv-default="[spot]"/></td>
+        <td><input type="text" property="position1" mv-default="1"/></td>
+        <td><input type="text" min="300" property="price1" mv-default="[spot]"/></td>
       </tr>
     </table>
     [count(lot)] lots
@@ -141,7 +140,7 @@
       <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo.png" height="20" alt="GitHub"></a>
     </div>
 
-    &copy; 2017 Michel Hua
+    &copy; 2018 Michel Hua
   </footer>
 
   <script src="https://dev.mavo.io/dist/mavo.es5.min.js"></script>

@@ -1,4 +1,4 @@
-/* global Mavo, echarts */
+/* global echarts */
 const moment = require('moment')
 // Const v = require('voca')
 // const echarts = require('echarts')
@@ -54,16 +54,17 @@ const drawChart = () => {
   myChart.setOption(option)
 }
 
-const lookupSpot = () => {
+const checkCoinbase = () => {
   const selCurrency = $('select[property=\'currency\']').value
   const selBase = $('select[property=\'base\']').value
 
+  console.log('checking coinbase for fresh data')
   coinbase.spot(selCurrency).then(res => {
-    const price = parseFloat(res.find(elt => elt.base === selBase).amount)
+    const price = parseFloat(res.find(elt => elt.base === selBase).amount, 'us')
     $('input[property=\'spot\']').value = price
 
     coinbase.historic('year').then(res => {
-      const prices52w = res.prices.map(x => parseFloat(x.price))
+      const prices52w = res.prices.map(x => parseFloat(x.price, 'us'))
       const min = prices52w.reduce((a, b) => Math.min(a, b))
       const max = prices52w.reduce((a, b) => Math.max(a, b))
       $('input[property=\'min52w\']').value = min
@@ -76,7 +77,7 @@ const lookupSpot = () => {
   })
 
   coinbase.historic('week').then(res => {
-    const prices2d = res.prices.map(x => parseFloat(x.price)).slice(0, 96)
+    const prices2d = res.prices.map(x => parseFloat(x.price, 'us')).slice(0, 96)
     const prices1d = prices2d.slice(0, 48)
     const close1d = prices1d[0]
     const [open1d] = prices1d.slice(-1)
@@ -86,17 +87,23 @@ const lookupSpot = () => {
   })
 }
 
-Mavo.Functions.onchange = (base, currency) => {
-  if (base && currency) {
-    console.log('Updating data...')
-    lookupSpot()
-    drawChart(base, currency)
+document.addEventListener('mv-change', evt => {
+  console.log(evt.action, evt.property, evt.value)
+
+  if (evt.action === 'propertychange') {
+    if (evt.property === 'base') {
+      checkCoinbase()
+    }
+
+    if (evt.property === 'currency') {
+      checkCoinbase()
+    }
   }
-  return `${base} ${currency}`
-}
+})
 
 initHTMLFields('BTC', 'EUR',
   [{text: 'BITCOIN', value: 'BTC'}, {text: 'ETHEREUM', value: 'ETH'}, {text: 'LITECOIN', value: 'LTC'}],
   [{text: 'EURO', value: 'EUR'}, {text: 'US DOLLAR', value: 'USD'}])
 
+checkCoinbase()
 drawChart('BTC', 'EUR')
