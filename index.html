@@ -38,7 +38,6 @@
     <input type="hidden" property="close1d" />
     <input type="hidden" property="min52w" />
     <input type="hidden" property="max52w" />
-    <input type="hidden" property="performance2d"/>
     <select id="currencies" property="currency" mv-default="EUR"></select>
     <h3>Insights</h3>
     <table>
@@ -73,13 +72,12 @@
         <td><select id="bases" property="base" mv-default="BTC"></select></td>
         <td>[spot]<br>[checked_date]</td>
         <td>
-          <graph>
-          </graph>
+          <div id="graphPerf2d"></div>
         </td>
         <td>[(close1d/open1d-1)*100]%<br>[close1d-open1d]</td>
         <td>/<br>/</td>
         <td>
-          <input type="range" property="range52w" min="[min52w]" max="[max52w]" />
+          <meter property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
         </td>
       </tr>
     </table>
@@ -129,7 +127,6 @@
     <h3>Benchmarks</h3>
     ...
 
-    <div id="myChart"></div>
   </main>
 
   <footer>
@@ -144,7 +141,6 @@
   </footer>
 
   <script src="https://dev.mavo.io/dist/mavo.es5.min.js"></script>
-  <script src="https://cdn.bootcss.com/echarts/3.8.5/echarts.min.js"></script>
   <script src="dist/app.js"></script>
 </body>
 </html>

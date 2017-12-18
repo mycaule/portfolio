@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/mycaule/portfolio.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Michel Hua",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mycaule/portfolio/issues"
   },
@@ -43,9 +43,9 @@
   "dependencies": {
     "axios": "^0.17.1",
     "echarts": "^3.8.5",
-    "express": "^4.16.2",
+    "jsep": "^0.3.3",
     "mavo": "^0.1.4",
-    "moment": "^2.19.4",
+    "moment": "^2.20.0",
     "superstruct": "^0.4.11",
     "voca": "^1.3.1"
   }

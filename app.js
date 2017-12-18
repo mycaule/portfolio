@@ -1,7 +1,12 @@
-/* global echarts */
+/* eslint import/no-unassigned-import: "off" */
+
 const moment = require('moment')
 // Const v = require('voca')
-// const echarts = require('echarts')
+
+const echarts = require('echarts/lib/echarts')
+
+// Include bar chart
+require('echarts/lib/chart/line')
 
 const coinbase = require('./services/coinbase')
 
@@ -29,29 +34,50 @@ const initHTMLFields = (base, currency, basesRef, currenciesRef) => {
   bases.value = base
 }
 
-const drawChart = () => {
-  const myChart = echarts.init($('#myChart'))
+const drawChart = prices => {
+  const chart = echarts.init($('#graphPerf2d'))
 
+  // ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
   const option = {
-    title: {
-      text: 'ECharts entry example'
-    },
-    tooltip: {},
-    legend: {
-      data: ['Sales']
-    },
-    xAxis: {
-      data: ['shirt', 'cardign', 'chiffon shirt', 'pants', 'heels', 'socks']
-    },
-    yAxis: {},
-    series: [{
-      name: 'Sales',
-      type: 'bar',
-      data: [5, 20, 36, 10, 10, 20]
-    }]
+    xAxis: [
+      {
+        data: prices.map(x => x.time),
+        show: false
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value',
+        min: 'dataMin',
+        max: 'dataMax',
+        show: false
+      }
+    ],
+    series: [
+      {
+        name: 'D-1',
+        type: 'line',
+        data: prices.map(x => x.price),
+        markLine: {
+          data: [
+            {type: 'average', name: 'avg price'}
+          ]
+        }
+      },
+      {
+        name: 'D-2',
+        type: 'line',
+        data: prices.slice(0, 48).map(x => x.price),
+        markLine: {
+          data: [
+            {type: 'average', name: 'avg price'}
+          ]
+        }
+      }
+    ]
   }
 
-  myChart.setOption(option)
+  chart.setOption(option)
 }
 
 const checkCoinbase = () => {
@@ -69,7 +95,7 @@ const checkCoinbase = () => {
       const max = prices52w.reduce((a, b) => Math.max(a, b))
       $('input[property=\'min52w\']').value = min
       $('input[property=\'max52w\']').value = max
-      $('input[property=\'range52w\']').value = price
+      $('meter[property=\'range52w\']').value = price
     })
 
     $('input[property=\'checked_time\']').value = moment().format('H:mm:ss')
@@ -77,13 +103,13 @@ const checkCoinbase = () => {
   })
 
   coinbase.historic('week').then(res => {
-    const prices2d = res.prices.map(x => parseFloat(x.price, 'us')).slice(0, 96)
-    const prices1d = prices2d.slice(0, 48)
+    const prices2d = res.prices.slice(0, 96)
+    const prices1d = prices2d.slice(0, 48).map(x => parseFloat(x.price, 'us'))
     const close1d = prices1d[0]
     const [open1d] = prices1d.slice(-1)
     $('input[property=\'close1d\']').value = close1d
     $('input[property=\'open1d\']').value = open1d
-    $('input[property=\'performance2d\']').value = prices2d
+    drawChart(prices2d)
   })
 }
 
@@ -106,4 +132,3 @@ initHTMLFields('BTC', 'EUR',
   [{text: 'EURO', value: 'EUR'}, {text: 'US DOLLAR', value: 'USD'}])
 
 checkCoinbase()
-drawChart('BTC', 'EUR')
