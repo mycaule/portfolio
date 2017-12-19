@@ -45,9 +45,8 @@ Regenerate the build and deploy to GitHub pages on master /docs folder.
 
 ### Roadmap
 
-- [ ] UI: Use Mavo TODO List Demo to add and remove symbols
+- [ ] Migrate to [UIkit](https://getuikit.com)
 - [ ] UI: Threshold detection (periodic unit tests with TravisCI and ava snapshots)
-- [ ] UI: Graphing past few days historical data and forecasts for next days
 - [ ] Data quality: Add more metrics
 - [ ] Errors with `superstruct` [returning-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/returning-errors.js), [throwing-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/throwing-errors.js), [custom-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/custom-errors.js)
 
