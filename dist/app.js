@@ -38911,7 +38911,7 @@ var check = function check() {
     }).amount, 'us');
     $('input[property=\'spot\']').value = price;
 
-    coinbase.historic('year', selBase).then(function (res) {
+    coinbase.historic('year', selBase, selCurrency).then(function (res) {
       console.log('checking year historic');
       var prices52w = res.prices.map(function (x) {
         return parseFloat(x.price, 'us');
@@ -38931,7 +38931,7 @@ var check = function check() {
     $('input[property=\'checked_date\']').value = moment().format('MM/DD/YYYY');
   });
 
-  coinbase.historic('week', selBase).then(function (res) {
+  coinbase.historic('week', selBase, selCurrency).then(function (res) {
     console.log('checking week historic');
     var twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days');
     var relevantPrices = res.prices.filter(function (x) {
@@ -38941,7 +38941,7 @@ var check = function check() {
     draw(relevantPrices);
   });
 
-  coinbase.historic('day', selBase).then(function (res) {
+  coinbase.historic('day', selBase, selCurrency).then(function (res) {
     console.log('checking day historic');
     var prices1d = res.prices.map(function (x) {
       return parseFloat(x.price, 'us');

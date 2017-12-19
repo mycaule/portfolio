@@ -122,7 +122,7 @@ const check = () => {
     const price = parseFloat(res.find(elt => elt.base === selBase).amount, 'us')
     $('input[property=\'spot\']').value = price
 
-    coinbase.historic('year', selBase).then(res => {
+    coinbase.historic('year', selBase, selCurrency).then(res => {
       console.log('checking year historic')
       const prices52w = res.prices.map(x => parseFloat(x.price, 'us'))
       const min = prices52w.reduce((a, b) => Math.min(a, b))
@@ -136,7 +136,7 @@ const check = () => {
     $('input[property=\'checked_date\']').value = moment().format('MM/DD/YYYY')
   })
 
-  coinbase.historic('week', selBase).then(res => {
+  coinbase.historic('week', selBase, selCurrency).then(res => {
     console.log('checking week historic')
     const twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days')
     const relevantPrices = res.prices.filter(x => moment(x.time).diff(twoDaysAgo) >= 0).reverse()
@@ -144,7 +144,7 @@ const check = () => {
     draw(relevantPrices)
   })
 
-  coinbase.historic('day', selBase).then(res => {
+  coinbase.historic('day', selBase, selCurrency).then(res => {
     console.log('checking day historic')
     const prices1d = res.prices.map(x => parseFloat(x.price, 'us'))
     const close1d = prices1d[0]
