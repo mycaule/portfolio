@@ -12,6 +12,7 @@ const draw = prices => {
   console.log(prices)
   const [last] = prices.slice(-1)
   const oneDayAgo = moment(last.time).startOf('day')
+  const prices1 = prices.filter(x => moment(x.time).diff(oneDayAgo) >= 0)
   const prices2 = prices.filter(x => moment(x.time).diff(oneDayAgo) < 0)
 
   console.log('prices', prices)
@@ -36,22 +37,7 @@ const draw = prices => {
       {
         name: 'D-1',
         type: 'line',
-        data: prices2.map(x => x.price),
-        markLine: {
-          data: [
-            {type: 'average', name: 'avg price'}
-          ]
-        },
-        lineStyle: {
-          normal: {
-            color: '#749f83'
-          }
-        }
-      },
-      {
-        name: 'D-2',
-        type: 'line',
-        data: prices.map(x => x.price),
+        data: prices2.map(x => [x.time, x.price]),
         markLine: {
           data: [
             {type: 'average', name: 'avg price'}
@@ -60,6 +46,21 @@ const draw = prices => {
         lineStyle: {
           normal: {
             color: '#c4ccd3'
+          }
+        }
+      },
+      {
+        name: 'D-2',
+        type: 'line',
+        data: prices1.map(x => [x.time, x.price]),
+        markLine: {
+          data: [
+            {type: 'average', name: 'avg price'}
+          ]
+        },
+        lineStyle: {
+          normal: {
+            color: '#c23531' // Or '#749f83' if trend is up
           }
         }
       }

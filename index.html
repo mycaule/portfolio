@@ -24,6 +24,9 @@
   <meta property="max52w" />
   <meta property="vol1d" />
   <meta property="avg_vol30d" />
+  <meta property="total_value" content="[sum(position1 * spot)]" />
+  <meta property="gain1d" content="[sum(position1 * (spot - open1d))]" />
+  <meta property="gain_total" content="[sum(position1 * (spot - price1))]" />
 
   <div id="fb-root"></div>
   <script>
@@ -49,9 +52,9 @@
             <th>Total Gain ([currency])</th>
           </tr>
           <tr>
-            <td>[sum(position1 * spot)]</td>
-            <td>[sum(position1 * (spot - open1d))]</td>
-            <td>[sum(position1 * (spot - price1))]</td>
+            <td>[total_value]</td>
+            <td>[gain1d] | [gain1d / (total_value-gain1d) * 100]%</td>
+            <td>[gain_total] | [gain_total/(total_value-gain_total) * 100]%</td>
           </tr>
         </table>
       </div>
@@ -153,7 +156,7 @@
       <div class="fb-like" data-href="https://mycaule.github.io/portfolio" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
     </div>
     <div>
-      <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo.png" height="20" alt="GitHub"></a>
+      <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo_White.png" height="20" alt="GitHub"></a>
     </div>
 
     &copy; 2018 Michel Hua
