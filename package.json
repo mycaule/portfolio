@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel app.js",
-    "test": "xo && nyc ava --verbose"
+    "test": "xo && ava --verbose"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
     "autoprefixer": "^7.2.3",
     "ava": "^0.24.0",
     "babel-preset-env": "^1.6.1",
-    "nyc": "^11.3.0",
     "parcel-bundler": "^1.2.0",
     "postcss-modules": "^1.1.0",
     "xo": "^0.18.2"

@@ -11,6 +11,7 @@
   <meta property="og:description" content="Bitcoin Watchlist" />
   <meta property="og:image" content="https://dummyimage.com/600x400/000/fff" />
   <link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -38,8 +39,8 @@
     <input type="hidden" property="close1d" />
     <input type="hidden" property="min52w" />
     <input type="hidden" property="max52w" />
-    <select id="currencies" property="currency" mv-default="EUR"></select>
-    <h3>Insights</h3>
+
+    <h2>Insights</h2>
     <table>
       <thead>
         <td>Total Value ([currency])</td>
@@ -58,75 +59,82 @@
       </tr>
     </table>
 
-    <h3>Summary</h3>
-    <table>
-      <thead>
-        <td>Symbol</td>
-        <td>Last Price<br>Time (ET)</td>
-        <td>2 Day Performance</td>
-        <td>%Change<br>Day Change</td>
-        <td>Volume<br>30 Day Average</td>
-        <td>52 Week Range</td>
-      </thead>
-      <tr>
-        <td><select id="bases" property="base" mv-default="BTC"></select></td>
-        <td>[spot]<br>[checked_date]</td>
-        <td>
-          <div id="graphPerf2d"></div>
-        </td>
-        <td>[(close1d/open1d-1)*100]%<br>[close1d-open1d]</td>
-        <td>/<br>/</td>
-        <td>
-          <meter property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
-        </td>
-      </tr>
-    </table>
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button">Summary</button>
+      <button class="w3-bar-item w3-button">Holdings</button>
+      <button class="w3-bar-item w3-button">Edit</button>
+    </div>
 
-    <h3>Holdings</h3>
-    <table>
-      <thead>
-        <td>Symbol</td>
-        <td>LastPrice<br>Time (ET)</td>
-        <td>% Change<br>Net Change</td>
-        <td>Day Gain<br>([currency])</td>
-        <td>Cost<br>Avg Price</td>
-        <td>Net Gain<br>([currency])</td>
-        <td>Value<br>([currency])</td>
-      </thead>
-      <tr>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-        <td>...</td>
-      </tr>
-    </table>
+    <div id="Summary" class="section">
+      <table>
+        <thead>
+          <td>Symbol</td>
+          <td>Last Price<br>Time (ET)</td>
+          <td>2 Day Performance</td>
+          <td>%Change<br>Day Change</td>
+          <td>Volume<br>30 Day Average</td>
+          <td>52 Week Range</td>
+        </thead>
+        <tr>
+          <td><select id="bases" property="base" mv-default="BTC"></select><br><select id="currencies" property="currency" mv-default="EUR"></select></td>
+          <td>[spot]<br>[checked_date]</td>
+          <td>
+            <div id="graphPerf2d"></div>
+          </td>
+          <td>[(close1d/open1d-1)*100]%<br>[close1d-open1d]</td>
+          <td>/<br>/</td>
+          <td>
+            <meter property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-    <h3>Edit</h3>
-    <table>
-      <thead>
-        <td>Symbol</td>
-        <td>Date</td>
-        <td>Position</td>
-        <td>Price</td>
-      </thead>
-      <tr property="lot" mv-mode="edit" mv-multiple>
-        <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
-        <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
-        <td><input type="text" property="position1" mv-default="1"/></td>
-        <td><input type="text" min="300" property="price1" mv-default="[spot]"/></td>
-      </tr>
-    </table>
-    [count(lot)] lots
+    <div id="Holdings" class="section" style="display:none">
+      <table>
+        <thead>
+          <td>Symbol</td>
+          <td>LastPrice<br>Time (ET)</td>
+          <td>% Change<br>Net Change</td>
+          <td>Day Gain<br>([currency])</td>
+          <td>Cost<br>Avg Price</td>
+          <td>Net Gain<br>([currency])</td>
+          <td>Value<br>([currency])</td>
+        </thead>
+        <tr>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+      </table>
+    </div>
 
-    <h3>Watchlist news</h3>
+    <div id="Edit" class="section" style="display:none">
+      <table>
+        <thead>
+          <td>Symbol</td>
+          <td>Date</td>
+          <td>Position</td>
+          <td>Price</td>
+        </thead>
+        <tr property="lot" mv-mode="edit" mv-multiple>
+          <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
+          <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
+          <td><input type="text" property="position1" mv-default="1"/></td>
+          <td><input type="text" min="300" property="price1" mv-default="[spot]"/></td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>News</h2>
     ...
 
-    <h3>Benchmarks</h3>
+    <h2>Benchmarks</h2>
     ...
-
   </main>
 
   <footer>
