@@ -2,3 +2,12 @@
   width: 120px;
   height:60px;
 }
+
+#graphRange52w {
+  width: 600px;
+  height:400px;
+}
+
+meter {
+  height: 0.5rem;
+}
