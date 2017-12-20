@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import * as coinbase from './coinbase'
+import coinbase from './coinbase'
 
 test('spot', async t => {
   const result = await coinbase.spot()

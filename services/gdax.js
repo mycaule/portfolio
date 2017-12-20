@@ -1,22 +1,22 @@
 /* eslint new-cap: "off" */
 
-const axios = require('axios')
-const S = require('superstruct')
-const moment = require('moment')
+import axios from 'axios'
+import {struct} from 'superstruct'
+import moment from 'moment'
 
 const gdax = axios.create({
   baseURL: 'https://api.gdax.com',
   timeout: 3000
 })
 
-const Base = S.struct.enum(['BTC', 'ETH', 'LTC'])
-const Currency = S.struct.enum(['EUR', 'USD'])
+const Base = struct.enum(['BTC', 'ETH', 'LTC'])
+const Currency = struct.enum(['EUR', 'USD'])
 
-const RawCandles = S.struct([
+const RawCandles = struct([
   ['number', 'number', 'number', 'number', 'number', 'number']
 ])
 
-const Candle = S.struct({
+const Candle = struct({
   time: 'string',
   low: 'number',
   high: 'number',
@@ -37,4 +37,4 @@ const candles = (b = 'BTC', c = 'EUR') =>
       })
     )
 
-module.exports = {candles}
+export default {candles}

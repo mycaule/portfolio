@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import * as gdax from './gdax'
+import gdax from './gdax'
 
 test('candles', async t => {
   const result = await gdax.candles()

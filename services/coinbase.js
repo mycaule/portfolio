@@ -1,26 +1,30 @@
 /* eslint new-cap: "off" */
 
-const axios = require('axios')
-const S = require('superstruct')
+import axios from 'axios'
+import {struct} from 'superstruct'
 
 const coinbase = axios.create({
   baseURL: 'https://api.coinbase.com/v2',
   timeout: 3000
 })
 
-const Base = S.struct.enum(['BTC', 'ETH', 'LTC'])
-const Currency = S.struct.enum(['EUR', 'USD'])
-const Amount = S.struct('string')
-const Time = S.struct('string')
-const Period = S.struct.enum(['hour', 'day', 'week', 'month', 'year', 'all'])
+const bases = [{text: 'BITCOIN', value: 'BTC'}, {text: 'ETHEREUM', value: 'ETH'}, {text: 'LITECOIN', value: 'LTC'}, {text: 'BITCASH', value: 'BCH'}]
+const currencies = [{text: 'EURO', value: 'EUR'}, {text: 'US DOLLAR', value: 'USD'}]
 
-const Spots = S.struct([{
+const Base = struct.enum(bases.map(x => x.value))
+const Currency = struct.enum(currencies.map(x => x.value))
+
+const Amount = struct('string')
+const Time = struct('string')
+const Period = struct.enum(['hour', 'day', 'week', 'month', 'year', 'all'])
+
+const Spots = struct([{
   base: Base,
   currency: Currency,
   amount: Amount
 }])
 
-const Prices = S.struct({
+const Prices = struct({
   currency: Currency,
   prices: [{
     price: Amount,
@@ -37,6 +41,8 @@ const historic = (p = 'year', b = 'BTC', c = 'EUR') =>
     }
   }).then(resp => Prices(resp.data.data))
 
-const reference = () => [Base, Currency]
+const reference = () => {
+  return {bases, currencies}
+}
 
-module.exports = {spot, historic, reference}
+export default {spot, historic, reference}

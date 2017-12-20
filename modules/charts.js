@@ -1,27 +1,15 @@
 /* eslint import/no-unassigned-import: "off" */
 
-const moment = require('moment')
-const echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/line')
-require('echarts/lib/chart/bar')
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/line'
 
 const perf2d = echarts.init(document.getElementById('graphPerf2d'))
 
-const draw = prices => {
-  // #c23531, #2f4554, #61a0a8, #d48265, #91c7ae, #749f83,  #ca8622, #bda29a, #6e7074, #546570, #c4ccd3
-  console.log(prices)
-  const [last] = prices.slice(-1)
-  const oneDayAgo = moment(last.time).startOf('day')
-  const prices1 = prices.filter(x => moment(x.time).diff(oneDayAgo) >= 0)
-  const prices2 = prices.filter(x => moment(x.time).diff(oneDayAgo) < 0)
-
-  console.log('prices', prices)
-  console.log('prices2', prices2)
-
+const draw = (times, prices1, prices2) => {
   const option = {
     xAxis: [
       {
-        data: prices.map(x => x.time),
+        data: times,
         show: false
       }
     ],
@@ -70,4 +58,4 @@ const draw = prices => {
   perf2d.setOption(option)
 }
 
-module.exports = {draw}
+export default {draw}

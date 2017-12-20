@@ -1,6 +1,7 @@
-const moment = require('moment')
-const coinbase = require('./services/coinbase')
-const gdax = require('./services/gdax')
+import moment from 'moment'
+import coinbase from './services/coinbase'
+import gdax from './services/gdax'
+import charts from './modules/charts'
 
 const $ = s => document.querySelector(s)
 
@@ -19,9 +20,11 @@ for (let i = 0; i < barItems.length; i++) {
   barItems[i].onclick = () => openTab(barItems[i].innerHTML)
 }
 
-const initHTMLFields = (base, currency, basesRef, currenciesRef) => {
+const initHTMLFields = () => {
+  const ref = coinbase.reference()
+
   const removeAll = selectbox => {
-    for(let i=selectbox.options.length-1; i>=0; i--) {
+    for (let i = selectbox.options.length - 1; i >= 0; i--) {
       selectbox.remove(i)
     }
   }
@@ -32,36 +35,34 @@ const initHTMLFields = (base, currency, basesRef, currenciesRef) => {
   removeAll(currencies)
   removeAll(bases)
 
-  basesRef.forEach(elt => {
+  ref.bases.forEach(elt => {
     const opt1 = document.createElement('option')
     opt1.text = elt.text
     opt1.value = elt.value
     bases.add(opt1)
   })
 
-  currenciesRef.forEach(elt => {
+  ref.currencies.forEach(elt => {
     const opt2 = document.createElement('option')
     opt2.text = elt.text
     opt2.value = elt.value
     currencies.add(opt2)
   })
 
-  currencies.value = currency
-  bases.value = base
+  // Currencies.value = currency
+  // bases.value = base
 }
 
 const check = () => {
   const selCurrency = $('select[property=\'currency\']').value
   const selBase = $('select[property=\'base\']').value
 
-  console.log('checking coinbase for fresh data')
+  console.log('checking coinbase...')
   coinbase.spot(selCurrency).then(res => {
-    console.log('checking spot')
     const price = parseFloat(res.find(elt => elt.base === selBase).amount, 'us')
     $('meta[property=\'spot\']').content = price
 
     coinbase.historic('year', selBase, selCurrency).then(res => {
-      console.log('checking year historic')
       const prices52w = res.prices.map(x => parseFloat(x.price, 'us'))
       const min = prices52w.reduce((a, b) => Math.min(a, b))
       const max = prices52w.reduce((a, b) => Math.max(a, b))
@@ -75,20 +76,24 @@ const check = () => {
   })
 
   coinbase.historic('week', selBase, selCurrency).then(res => {
-    console.log('checking week historic')
     const twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days')
     const prices2d = res.prices.filter(x => moment(x.time).diff(twoDaysAgo) >= 0).reverse()
 
-    $('meta[property=\'open1d\']').content = parseFloat(prices2d[0].price, 'us')
+    const [last] = prices2d.slice(-1)
+    const oneDayAgo = moment(last.time).startOf('day')
+    const times = prices2d.map(x => x.time)
+    const prices1 = prices2d.filter(x => moment(x.time).diff(oneDayAgo) >= 0)
+    const prices2 = prices2d.filter(x => moment(x.time).diff(oneDayAgo) < 0)
 
-    import('./modules/charts').then(charts => charts.draw(prices2d))
+    charts.draw(times, prices1, prices2)
+
+    $('meta[property=\'open1d\']').content = parseFloat(prices1[0].price, 'us')
   })
 
-  console.log('checking gdax for fresh data')
+  console.log('checking gdax...')
   gdax.candles(selBase, selCurrency).then(res => {
-    $('meta[property=\'vol1d\']').content = `${(res[0].volume/1000).toFixed(2)} M`
-    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0,30).reduce((acc, x) => acc+x.volume, 0)/1000).toFixed(2)} M`
-    console.log('gdax', res)
+    $('meta[property=\'vol1d\']').content = `${(res[0].volume / 1000).toFixed(2)} M`
+    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, x) => acc + x.volume, 0) / 1000).toFixed(2)} M`
   })
 }
 
@@ -106,8 +111,6 @@ document.addEventListener('mv-change', evt => {
   }
 })
 
-initHTMLFields('BTC', 'EUR',
-  [{text: 'BITCOIN', value: 'BTC'}, {text: 'ETHEREUM', value: 'ETH'}, {text: 'LITECOIN', value: 'LTC'}],
-  [{text: 'EURO', value: 'EUR'}, {text: 'US DOLLAR', value: 'USD'}])
+initHTMLFields()
 
 check()
