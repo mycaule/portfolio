@@ -1,3 +1,5 @@
+/* eslint import/no-unassigned-import: "off" */
+
 import moment from 'moment'
 import coinbase from './services/coinbase'
 import gdax from './services/gdax'
@@ -63,9 +65,9 @@ const check = () => {
     $('meta[property=\'spot\']').content = price
 
     coinbase.historic('year', selBase, selCurrency).then(res => {
-      const prices52w = res.prices.map(x => parseFloat(x.price, 'us'))
-      const min = prices52w.reduce((a, b) => Math.min(a, b))
-      const max = prices52w.reduce((a, b) => Math.max(a, b))
+      const prices52w = res.prices.map(_ => parseFloat(_.price, 'us'))
+      const min = Math.min(...prices52w)
+      const max = Math.max(...prices52w)
       $('meta[property=\'min52w\']').content = min
       $('meta[property=\'max52w\']').content = max
       $('meter[property=\'range52w\']').value = price
@@ -77,24 +79,23 @@ const check = () => {
 
   coinbase.historic('week', selBase, selCurrency).then(res => {
     const twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days')
-    const prices2d = res.prices.filter(x => moment(x.time).diff(twoDaysAgo) >= 0).reverse()
+    const prices2d = res.prices.filter(_ => moment(_.time).diff(twoDaysAgo) >= 0).reverse()
 
-    const [last] = prices2d.slice(-1)
+    const last = prices2d[prices2d.length - 1]
     const oneDayAgo = moment(last.time).startOf('day')
-    const times = prices2d.map(x => x.time)
-    const prices1 = prices2d.filter(x => moment(x.time).diff(oneDayAgo) >= 0)
-    const prices2 = prices2d.filter(x => moment(x.time).diff(oneDayAgo) < 0)
+    const times = prices2d.map(_ => _.time)
+    const prices1 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) >= 0)
+    const prices2 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) < 0)
 
     charts.draw(times, prices1, prices2)
 
-    console.log('open1d', prices1[0])
     $('meta[property=\'open1d\']').content = parseFloat(prices1[0].price, 'us')
   })
 
   console.log('checking gdax...')
   gdax.candles(selBase, selCurrency).then(res => {
     $('meta[property=\'vol1d\']').content = `${(res[0].volume / 1000).toFixed(2)} M`
-    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, x) => acc + x.volume, 0) / (30 * 1000)).toFixed(2)} M`
+    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, _) => acc + _.volume, 0) / (30 * 1000)).toFixed(2)} M`
   })
 }
 

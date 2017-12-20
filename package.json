@@ -24,6 +24,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
+    "jsep": "^0.3.3",
     "parcel-bundler": "^1.2.0",
     "postcss-modules": "^1.1.0",
     "xo": "^0.18.2"

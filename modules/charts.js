@@ -48,7 +48,7 @@ const draw = (times, prices1, prices2) => {
         },
         lineStyle: {
           normal: {
-            color: '#c23531' // Or '#749f83' if trend is up
+            color: prices1[prices1.length - 1].price - prices1[0].price > 0 ? '#749f83' : '#c23531'
           }
         }
       }
