@@ -87,13 +87,14 @@ const check = () => {
 
     charts.draw(times, prices1, prices2)
 
+    console.log('open1d', prices1[0])
     $('meta[property=\'open1d\']').content = parseFloat(prices1[0].price, 'us')
   })
 
   console.log('checking gdax...')
   gdax.candles(selBase, selCurrency).then(res => {
     $('meta[property=\'vol1d\']').content = `${(res[0].volume / 1000).toFixed(2)} M`
-    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, x) => acc + x.volume, 0) / 1000).toFixed(2)} M`
+    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, x) => acc + x.volume, 0) / (30 * 1000)).toFixed(2)} M`
   })
 }
 

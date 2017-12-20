@@ -4,5 +4,5 @@ import gdax from './gdax'
 
 test('candles', async t => {
   const result = await gdax.candles()
-  t.true(result.length > 100)
+  t.is(result.length, 30)
 })

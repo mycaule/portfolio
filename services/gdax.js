@@ -28,6 +28,8 @@ const Candle = struct({
 const candles = (b = 'BTC', c = 'EUR') =>
   gdax.get(`/products/${Base(b)}-${Currency(c)}/candles`, {
     params: {
+      start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
+      end: moment().format('YYYY-MM-DD'),
       granularity: 24 * 60 * 60
     }
   }).then(resp =>
