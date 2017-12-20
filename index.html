@@ -20,6 +20,7 @@
   <meta property="checked_time" />
   <meta property="checked_date" />
   <meta property="open1d" />
+  <meta property="avg52w" />
   <meta property="min52w" />
   <meta property="max52w" />
   <meta property="vol1d" />
@@ -105,7 +106,7 @@
           <table class="w3-table">
             <tr>
               <th>Symbol</th>
-              <th>LastPrice<br>Time (ET)</th>
+              <th>LastPrice<br>Time</th>
               <th>% Change<br>Net Change</th>
               <th>Day Gain<br>([currency])</th>
               <th>Cost<br>Avg Price</th>
@@ -113,13 +114,13 @@
               <th>Value<br>([currency])</th>
             </tr>
             <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
+              <td>[base]-[currency]</td>
+              <td><b>[spot]</b><br>[checked_date]</td>
+              <td><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
+              <td>[gain1d]</td>
+              <td><b>...</b><br>[avg52w]</td>
+              <td>[gain_total]</td>
+              <td>[total_value]</td>
             </tr>
           </table>
         </div>

@@ -5,7 +5,7 @@ import 'echarts/lib/chart/line'
 
 const perf2d = echarts.init(document.getElementById('graphPerf2d'))
 
-const draw = (times, prices1, prices2) => {
+const draw = (times, spot, prices1, prices2) => {
   const option = {
     xAxis: [
       {
@@ -25,6 +25,7 @@ const draw = (times, prices1, prices2) => {
       {
         name: 'D-1',
         type: 'line',
+        showSymbol: false,
         data: prices2.map(x => [x.time, x.price]),
         markLine: {
           data: [
@@ -40,6 +41,7 @@ const draw = (times, prices1, prices2) => {
       {
         name: 'D-2',
         type: 'line',
+        showSymbol: false,
         data: prices1.map(x => [x.time, x.price]),
         markLine: {
           data: [
@@ -48,7 +50,7 @@ const draw = (times, prices1, prices2) => {
         },
         lineStyle: {
           normal: {
-            color: prices1[prices1.length - 1].price - prices1[0].price > 0 ? '#749f83' : '#c23531'
+            color: spot - prices1[0].price > 0 ? '#749f83' : '#c23531'
           }
         }
       }

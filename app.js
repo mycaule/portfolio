@@ -61,16 +61,15 @@ const check = () => {
 
   console.log('checking coinbase...')
   coinbase.spot(selCurrency).then(res => {
-    const price = parseFloat(res.find(elt => elt.base === selBase).amount, 'us')
-    $('meta[property=\'spot\']').content = price
+    const spot = parseFloat(res.find(elt => elt.base === selBase).amount, 'us')
+    $('meta[property=\'spot\']').content = spot
 
     coinbase.historic('year', selBase, selCurrency).then(res => {
       const prices52w = res.prices.map(_ => parseFloat(_.price, 'us'))
-      const min = Math.min(...prices52w)
-      const max = Math.max(...prices52w)
-      $('meta[property=\'min52w\']').content = min
-      $('meta[property=\'max52w\']').content = max
-      $('meter[property=\'range52w\']').value = price
+      $('meta[property=\'min52w\']').content = Math.min(...prices52w)
+      $('meta[property=\'max52w\']').content = Math.max(...prices52w)
+      $('meta[property=\'avg52w\']').content = (prices52w.reduce((acc, val) => acc + val, 0) / prices52w.length).toFixed(2)
+      $('meter[property=\'range52w\']').value = spot
     })
 
     $('meta[property=\'checked_time\']').content = moment().format('H:mm:ss')
@@ -78,16 +77,17 @@ const check = () => {
   })
 
   coinbase.historic('week', selBase, selCurrency).then(res => {
+    const oneDayAgo = moment(res.prices[0].time).startOf('day')
     const twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days')
+
     const prices2d = res.prices.filter(_ => moment(_.time).diff(twoDaysAgo) >= 0).reverse()
 
-    const last = prices2d[prices2d.length - 1]
-    const oneDayAgo = moment(last.time).startOf('day')
     const times = prices2d.map(_ => _.time)
     const prices1 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) >= 0)
     const prices2 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) < 0)
 
-    charts.draw(times, prices1, prices2)
+    const spot = $('meta[property=\'spot\']').value
+    charts.draw(times, spot, prices1, prices2)
 
     $('meta[property=\'open1d\']').content = parseFloat(prices1[0].price, 'us')
   })
