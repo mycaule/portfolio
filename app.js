@@ -4,6 +4,7 @@ import moment from 'moment'
 import coinbase from './services/coinbase'
 import gdax from './services/gdax'
 import charts from './modules/charts'
+import './modules/feed'
 
 const $ = s => document.querySelector(s)
 

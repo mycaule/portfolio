@@ -61,3 +61,5 @@ Regenerate the build and deploy to GitHub pages on master /docs folder.
 * [Mavo](https://mavo.io/)
 * [Baidu Echarts](https://github.com/ecomfe/echarts)
 * [Bloomberg Watchlist](https://www.bloomberg.com/markets/watchlist)
+* [rss2json](https://rss2json.com/google-feed-api-alternative)
+* [CryptoCurrencies News Sites](https://www.reddit.com/r/CryptoCurrency/comments/6y8tbx/rss_feeds_cryptocurrencies_news_sites/)
