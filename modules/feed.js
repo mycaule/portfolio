@@ -48,7 +48,7 @@ const initialize = () => {
     if (!result.error) {
       const top10 = result.feed.entries.slice(2, 12)
       addResults(top10.slice(0, 5), 'feed5')
-      addResults(top10.slice(0, 5), 'feed10')
+      addResults(top10.slice(-5), 'feed10')
     }
   })
 }
