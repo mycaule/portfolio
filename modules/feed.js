@@ -1,9 +1,6 @@
-/* global google */
-
 import moment from 'moment'
 import unescapeHtml from 'voca/unescape_html'
-
-google.load('feeds', '1')
+import truncate from 'voca/truncate'
 
 const moreNews = document.getElementById('toggleFeed')
 
@@ -28,29 +25,31 @@ const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)
   entries.forEach(entry => {
     const a = document.createElement('a')
-    const linkText = document.createTextNode(unescapeHtml(entry.title))
+    const linkText = document.createTextNode(truncate(unescapeHtml(entry.title), 100))
     a.appendChild(linkText)
-    a.title = unescapeHtml(entry.title)
+    a.title = truncate(entry.title, 30)
     a.href = entry.link
     container.appendChild(a)
 
     const div = document.createElement('div')
-    div.appendChild(document.createTextNode(`Published ${moment(entry.publishedDate).format('ddd MMM DD YYYY')}`))
+    div.appendChild(document.createTextNode(`Published ${moment(entry.pubDate).format('ddd MMM DD YYYY')}`))
     container.appendChild(div)
   })
 }
 
-const initialize = () => {
-  // Const feed = new google.feeds.Feed('https://www.reddit.com/r/CryptoCurrency.rss')
-  const feed = new google.feeds.Feed('https://www.reddit.com/r/Bitcoin.rss')
+const xhr = new XMLHttpRequest()
 
-  feed.load(result => {
-    if (!result.error) {
-      const top10 = result.feed.entries.slice(2, 12)
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    const data = JSON.parse(xhr.responseText)
+    if (data.status === 'ok') {
+      const top10 = data.items.slice(2, 12)
       addResults(top10.slice(0, 5), 'feed5')
       addResults(top10.slice(-5), 'feed10')
     }
-  })
+  }
 }
 
-google.setOnLoadCallback(initialize)
+// https://www.reddit.com/r/CryptoCurrency.rss
+xhr.open('GET', `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.reddit.com/r/Bitcoin.rss')}`, true)
+xhr.send()

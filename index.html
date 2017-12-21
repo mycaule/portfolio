@@ -11,7 +11,6 @@
   <meta property="og:description" content="Bitcoin Watchlist" />
   <meta property="og:image" content="https://dummyimage.com/600x400/000/fff" />
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -46,22 +45,39 @@
   </div>
   <div class="container">
     <div class="columns">
-      <div class="column col-10">
+      <div class="column col-1"></div>
+      <div class="column col-9">
         <table class="table table-scroll">
           <tr>
             <th>Total Value ([currency])</th>
             <th>Day Gain ([currency])</th>
+            <th></th>
             <th>Total Gain ([currency])</th>
           </tr>
           <tr>
             <td><h5>[total_value]</h5></td>
             <td class="[iff(gain1d>0, 'text-success', 'text-error')]">
-              <i class="icon [iff(gain1d>0, 'icon-upward', 'icon-downward')]"></i> [gain1d] |
-              <small>[gain1d / (total_value-gain1d) * 100]%</small>
+              <div class="columns">
+                <div class="column">
+                  <i class="icon [iff(gain1d>0, 'icon-upward', 'icon-downward')]"></i> [gain1d]
+                </div>
+                <div class="divider-vert"></div>
+                <div class="column">
+                  <small>[gain1d / (total_value-gain1d) * 100]%</small>
+                </div>
+              </div>
             </td>
+            <td></td>
             <td class="[iff(gain_total>0, 'text-success', 'text-error')]">
-              <i class="icon [iff(gain_total>0, 'icon-upward', 'icon-downward')]"></i> [gain_total] |
-              <small>[gain_total/(total_value-gain_total) * 100]%</small>
+              <div class="columns">
+                <div class="column">
+                  <i class="icon [iff(gain_total>0, 'icon-upward', 'icon-downward')]"></i> [gain_total]
+                </div>
+                <div class="divider-vert"></div>
+                <div class="column">
+                  <small>[gain_total/(total_value-gain_total) * 100]%</small>
+                </div>
+              </div>
             </td>
           </tr>
         </table>
@@ -189,7 +205,6 @@
   </div>
 
   <script src="https://dev.mavo.io/dist/mavo.es5.min.js"></script>
-  <script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
   <script src="dist/app.js"></script>
 </body>
 </html>

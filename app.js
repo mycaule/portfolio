@@ -94,7 +94,6 @@ const check = () => {
     const prices1 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) >= 0)
     const prices2 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) < 0)
 
-    console.log('spot', $('meta[property=\'spot\']'))
     const spot = $('meta[property=\'spot\']').content
     charts.draw(times, spot, prices1, prices2)
 
