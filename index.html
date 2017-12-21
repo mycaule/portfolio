@@ -144,12 +144,18 @@
               <th>Date</th>
               <th>Position</th>
               <th>Price</th>
+              <th>Delete</th>
             </tr>
             <tr property="lot" mv-mode="edit" mv-multiple>
-              <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
-              <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
+              <td>[base]-[currency]</td>
+              <td><input class="form-input input-sm" type="date" property="date1" mv-mode="edit" mv-default="2016-12-16"></time></td>
               <td><input class="form-input input-sm" type="text" property="position1" mv-default="1"/></td>
               <td><input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot]"/></td>
+              <td>
+                <div class="mv-item-bar mv-ui" mv-rel="lot">
+                  <!-- <button title="Delete this lot" class="mv-delete"><i class="icon icon-cross mv-delete"></i></button> -->
+                </div>
+              </td>
             </tr>
           </table>
         </div>
