@@ -45,7 +45,7 @@ Regenerate the build and deploy to GitHub pages on master /docs folder.
 
 ### Roadmap
 
-- [ ] Migrate to [UIkit](https://getuikit.com)
+- [ ] [Websocket feed](https://docs.gdax.com/#websocket-feed)
 - [ ] UI: Threshold detection (periodic unit tests with TravisCI and ava snapshots)
 - [ ] Data quality: Add more metrics
 - [ ] Errors with `superstruct` [returning-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/returning-errors.js), [throwing-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/throwing-errors.js), [custom-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/custom-errors.js)

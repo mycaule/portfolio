@@ -32,11 +32,11 @@ const candles = (b = 'BTC', c = 'EUR') =>
       end: moment().format('YYYY-MM-DD'),
       granularity: 24 * 60 * 60
     }
-  }).then(resp =>
-      RawCandles(resp.data).map(x => {
-        const [time, low, high, open, close, volume] = x
-        return Candle({time: moment.unix(time).format('YYYY-MM-DD'), low, high, open, close, volume})
-      })
-    )
+  }).then(resp => {
+    RawCandles(resp.data).map(x => {
+      const [time, low, high, open, close, volume] = x
+      return Candle({time: moment.unix(time).format('YYYY-MM-DD'), low, high, open, close, volume})
+    })
+  })
 
 export default {candles}

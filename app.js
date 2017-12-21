@@ -17,10 +17,17 @@ const openTab = sectionName => {
   document.getElementById(sectionName).style.display = 'block'
 }
 
-const barItems = document.getElementsByClassName('w3-bar-item')
+const tabItems = document.getElementsByClassName('tab-item')
 
-for (let i = 0; i < barItems.length; i++) {
-  barItems[i].onclick = () => openTab(barItems[i].innerHTML)
+for (let i = 0; i < tabItems.length; i++) {
+  tabItems[i].onclick = () => {
+    for (let j = 0; j < tabItems.length; j++) {
+      tabItems[j].classList.remove('active')
+    }
+
+    tabItems[i].classList.toggle('active')
+    openTab(tabItems[i].textContent)
+  }
 }
 
 const initHTMLFields = () => {
@@ -87,7 +94,8 @@ const check = () => {
     const prices1 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) >= 0)
     const prices2 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) < 0)
 
-    const spot = $('meta[property=\'spot\']').value
+    console.log('spot', $('meta[property=\'spot\']'))
+    const spot = $('meta[property=\'spot\']').content
     charts.draw(times, spot, prices1, prices2)
 
     $('meta[property=\'open1d\']').content = parseFloat(prices1[0].price, 'us')

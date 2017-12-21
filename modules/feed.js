@@ -26,8 +26,6 @@ moreNews.onclick = () => toggleFeed()
 const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)
   entries.forEach(entry => {
-    console.log(entry)
-
     const a = document.createElement('a')
     const linkText = document.createTextNode(entry.title)
     a.appendChild(linkText)

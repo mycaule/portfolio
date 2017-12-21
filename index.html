@@ -11,7 +11,9 @@
   <meta property="og:description" content="Bitcoin Watchlist" />
   <meta property="og:image" content="https://dummyimage.com/600x400/000/fff" />
   <link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -40,13 +42,13 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
 
-  <div class="w3-container w3-black w3-teal">
+  <div class="container">
     <h3>Watchlist</h3>
   </div>
-  <div class="w3-container w3-light-grey">
-    <div class="w3-row">
-      <div class="w3-container w3-twothird">
-        <table class="w3-table">
+  <div class="container">
+    <div class="columns">
+      <div class="column col-10">
+        <table class="table table-scroll">
           <tr>
             <th>Total Value ([currency])</th>
             <th>Day Gain ([currency])</th>
@@ -54,13 +56,13 @@
           </tr>
           <tr>
             <td>[total_value]</td>
-            <td>[gain1d] | [gain1d / (total_value-gain1d) * 100]%</td>
-            <td>[gain_total] | [gain_total/(total_value-gain_total) * 100]%</td>
+            <td><i class="icon icon-upward"></i> [gain1d] | <small class="label">[gain1d / (total_value-gain1d) * 100]%</small></td>
+            <td><i class="icon icon-downward"></i> [gain_total] | <small class="label">[gain_total/(total_value-gain_total) * 100]%</small></td>
           </tr>
         </table>
       </div>
-      <div class="w3-container w3-third">
-        <blockquote class="w3-panel w3-leftbar w3-light-grey">
+      <div class="column col-2">
+        <blockquote>
           Data as of:<br>
           [checked_time]<br>
           on [checked_date]
@@ -68,16 +70,19 @@
       </div>
     </div>
 
-    <div class="w3-row">
-      <div class="w3-container w3-twothird">
-        <div class="w3-bar w3-black">
-          <button class="w3-bar-item w3-button">Summary</button>
-          <button class="w3-bar-item w3-button">Holdings</button>
-          <button class="w3-bar-item w3-button">Edit</button>
-        </div>
-
+    <div class="columns">
+      <div class="column col-3">
+        <ul class="tab tab-block">
+          <li class="tab-item active"><a href="#">Summary</a></li>
+          <li class="tab-item"><a href="#">Holdings</a></li>
+          <li class="tab-item"><a href="#">Edit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column col-8">
         <div id="Summary" class="section">
-          <table class="w3-table">
+          <table class="table table-scroll">
             <tr>
               <th>Symbol</th>
               <th>Last Price<br>Time</th>
@@ -87,7 +92,7 @@
               <th>52 Week Range</th>
             </tr>
             <tr>
-              <td><select id="bases" property="base" mv-default="BTC"></select><br><select id="currencies" property="currency" mv-default="EUR"></select></td>
+              <td><select class="form-select" id="bases" property="base" mv-default="BTC"></select><br><select class="form-select" id="currencies" property="currency" mv-default="EUR"></select></td>
               <td><b>[spot]</b><br>[checked_date]</td>
               <td>
                 <div id="graphPerf2d"></div>
@@ -95,7 +100,7 @@
               <td><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
               <td><b>[vol1d]</b><br>[avg_vol30d]</td>
               <td>
-                <meter property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
+                <meter class="meter" property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
                 <br>[min52w] - [max52w]
               </td>
             </tr>
@@ -103,7 +108,7 @@
         </div>
 
         <div id="Holdings" class="section" style="display:none">
-          <table class="w3-table">
+          <table class="table table-scroll">
             <tr>
               <th>Symbol</th>
               <th>LastPrice<br>Time</th>
@@ -126,7 +131,7 @@
         </div>
 
         <div id="Edit" class="section" style="display:none">
-          <table class="w3-table">
+          <table class="table table-scroll">
             <tr>
               <th>Symbol</th>
               <th>Date</th>
@@ -136,25 +141,30 @@
             <tr property="lot" mv-mode="edit" mv-multiple>
               <td><span property="base1" mv-edit="#bases" mv-mode="edit" mv-default="BTC"></span></td>
               <td><time mv-mode="edit" property="date1" mv-default="2016-12-16"></time></td>
-              <td><input type="text" property="position1" mv-default="1"/></td>
-              <td><input type="text" min="300" property="price1" mv-default="[spot]"/></td>
+              <td><input class="form-input input-sm" type="text" property="position1" mv-default="1"/></td>
+              <td><input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot]"/></td>
             </tr>
           </table>
         </div>
       </div>
-      <div class="w3-container w3-third">
-        <h4>Watchlist News</h4>
-        <div id="feed5"></div>
-        <div id="feed10" class="more-news" style="display:none"></div>
-        <br>
-        <div id="toggleFeed">Show more watchlist news</div>
-        <h4>Benchmarks</h4>
-        ...
+      <div class="column col-4">
+        <p>
+          <h4>Watchlist News</h4>
+          <div id="feed5"></div>
+          <div id="feed10" class="more-news" style="display:none"></div>
+          <br>
+          <a href="#" id="toggleFeed">Show more watchlist news</a>
+        </p>
+
+        <p>
+          <h4>Benchmarks</h4>
+          ...
+        </p>
       </div>
     </div>
   </div>
 
-  <div class="w3-container w3-dark-grey w3-teal w3-center">
+  <div class="container center">
     <div>
       <div class="fb-like" data-href="https://mycaule.github.io/portfolio" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
     </div>

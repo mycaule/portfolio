@@ -34,7 +34,7 @@ const draw = (times, spot, prices1, prices2) => {
         },
         lineStyle: {
           normal: {
-            color: '#c4ccd3'
+            color: '#acb3c2'
           }
         }
       },
@@ -50,7 +50,7 @@ const draw = (times, spot, prices1, prices2) => {
         },
         lineStyle: {
           normal: {
-            color: spot - prices1[0].price > 0 ? '#749f83' : '#c23531'
+            color: spot - prices1[0].price > 0 ? '#32b643' : '#e85600'
           }
         }
       }

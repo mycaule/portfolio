@@ -8,6 +8,7 @@
   height:400px;
 }
 
-meter {
-  height: 0.5rem;
+.meter {
+  background: #e85600;
+  height: .4rem;
 }
