@@ -10,7 +10,6 @@
   <meta property="og:title" content="Bitcoin Watchlist" />
   <meta property="og:description" content="Bitcoin Watchlist" />
   <meta property="og:image" content="https://dummyimage.com/600x400/000/fff" />
-  <link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -43,7 +42,7 @@
   </script>
 
   <div class="container">
-    <h3>Watchlist</h3>
+    <h4>Watchlist</h4>
   </div>
   <div class="container">
     <div class="columns">
@@ -55,9 +54,15 @@
             <th>Total Gain ([currency])</th>
           </tr>
           <tr>
-            <td>[total_value]</td>
-            <td><i class="icon icon-upward"></i> [gain1d] | <small class="label">[gain1d / (total_value-gain1d) * 100]%</small></td>
-            <td><i class="icon icon-downward"></i> [gain_total] | <small class="label">[gain_total/(total_value-gain_total) * 100]%</small></td>
+            <td><h5>[total_value]</h5></td>
+            <td class="[iff(gain1d>0, 'text-success', 'text-error')]">
+              <i class="icon [iff(gain1d>0, 'icon-upward', 'icon-downward')]"></i> [gain1d] |
+              <small>[gain1d / (total_value-gain1d) * 100]%</small>
+            </td>
+            <td class="[iff(gain_total>0, 'text-success', 'text-error')]">
+              <i class="icon [iff(gain_total>0, 'icon-upward', 'icon-downward')]"></i> [gain_total] |
+              <small>[gain_total/(total_value-gain_total) * 100]%</small>
+            </td>
           </tr>
         </table>
       </div>
@@ -97,11 +102,11 @@
               <td>
                 <div id="graphPerf2d"></div>
               </td>
-              <td><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
+              <td class="[iff(spot>open1d, 'text-success', 'text-error')]"><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
               <td><b>[vol1d]</b><br>[avg_vol30d]</td>
               <td>
                 <meter class="meter" property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
-                <br>[min52w] - [max52w]
+                <br><small>[min52w]</small> - <small>[max52w]</small>
               </td>
             </tr>
           </table>
@@ -111,21 +116,23 @@
           <table class="table table-scroll">
             <tr>
               <th>Symbol</th>
-              <th>LastPrice<br>Time</th>
+              <th>Last Price<br>Time</th>
               <th>% Change<br>Net Change</th>
               <th>Day Gain<br>([currency])</th>
+              <th>Positions</th>
               <th>Cost<br>Avg Price</th>
               <th>Net Gain<br>([currency])</th>
               <th>Value<br>([currency])</th>
             </tr>
             <tr>
-              <td>[base]-[currency]</td>
+              <td><b>[base]-[currency]</b><br>.</td>
               <td><b>[spot]</b><br>[checked_date]</td>
-              <td><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
-              <td>[gain1d]</td>
-              <td><b>...</b><br>[avg52w]</td>
-              <td>[gain_total]</td>
-              <td>[total_value]</td>
+              <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
+              <td class="[iff(gain1d>0, 'text-success', 'text-error')]"><b>[gain1d]</b><br>.</td>
+              <td><b>[sum(position1)]</b><br>[count(lot)] lots</td>
+              <td><b>[sum(position1*price1)]</b><br>[avg52w]</td>
+              <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
+              <td><b>[total_value]</b><br>.</td>
             </tr>
           </table>
         </div>
@@ -164,12 +171,12 @@
     </div>
   </div>
 
-  <div class="container center">
+  <div class="container">
     <div>
       <div class="fb-like" data-href="https://mycaule.github.io/portfolio" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
     </div>
     <div>
-      <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo_White.png" height="20" alt="GitHub"></a>
+      <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo.png" height="20" alt="GitHub"></a>
     </div>
 
     &copy; 2018 Michel Hua

@@ -5,8 +5,7 @@ import {struct} from 'superstruct'
 import moment from 'moment'
 
 const gdax = axios.create({
-  baseURL: 'https://api.gdax.com',
-  timeout: 3000
+  baseURL: 'https://api.gdax.com'
 })
 
 const Base = struct.enum(['BTC', 'ETH', 'LTC'])

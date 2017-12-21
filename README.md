@@ -12,7 +12,9 @@
 
 A simple webapp to check the values of cryptocurrencies value compared to other time-series metrics.
 
-The project uses [Coinbase API](https://coinbase.com).
+![Screenshot](img/Screenshot.png)
+
+The project uses [Coinbase API](https://coinbase.com) and [GDAX API](https://docs.gdax.com/#market-data).
 
 [Open an issue](https://github.com/mycaule/portfolio/issues) if the data is incorrect or if you want some metric to appear on the list. You can also check [the roadmap for this application](#user-content-roadmap).
 
@@ -33,21 +35,21 @@ npm test
 npm start
 ```
 
-Runs a local webserver at [http:localhost:1234](http:localhost:1234) with parcel bundler.
+Bundles to a `dist/app.js` file that can run in a browser. The application runs without a server, just open `index.html` in your browser! Data is saved using *Local storage*
 
 #### Production
 ```
 parcel build app.js
+git commit -am "Deploy on $(date +'%F %T %Z')"
 git push
 ```
 
-Regenerate the build and deploy to GitHub pages on master /docs folder.
+Regenerate the build and deploy to GitHub pages.
 
 ### Roadmap
 
 - [ ] [Websocket feed](https://docs.gdax.com/#websocket-feed)
-- [ ] UI: Threshold detection (periodic unit tests with TravisCI and ava snapshots)
-- [ ] Data quality: Add more metrics
+- [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance)
 - [ ] Errors with `superstruct` [returning-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/returning-errors.js), [throwing-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/throwing-errors.js), [custom-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/custom-errors.js)
 
 ### License

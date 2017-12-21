@@ -12,3 +12,213 @@
   background: #e85600;
   height: .4rem;
 }
+
+.mv-danger:enabled:hover {
+  -webkit-box-shadow: 0 0 10em #b00 inset;
+  box-shadow: 0 0 10em #b00 inset;
+  color: white; }
+
+.mv-highlight {
+  -webkit-box-shadow: 0 0 0 50vmax rgba(255, 247, 0, 0.5) inset ;
+  box-shadow: 0 0 0 50vmax rgba(255, 247, 0, 0.5) inset ; }
+
+.mv-drag-handle {
+  cursor: move; }
+  .mv-drag-handle:active, .mv-drag-handle:focus {
+    cursor: -webkit-grabbing;
+    cursor: grabbing; }
+
+[mv-multiple] {
+  position: relative; }
+  [mv-multiple].mv-highlight {
+    -webkit-box-shadow: 0 0 0 50vmax rgba(149, 191, 64, 0.25) inset !important;
+    box-shadow: 0 0 0 50vmax rgba(149, 191, 64, 0.25) inset !important; }
+  [mv-multiple].mv-deleted {
+    -webkit-box-shadow: 0 0 0 50vmax rgba(255, 0, 0, 0.2) inset !important;
+    box-shadow: 0 0 0 50vmax rgba(255, 0, 0, 0.2) inset !important; }
+  [mv-multiple].mv-deleted {
+    display: block; }
+    [mv-multiple].mv-deleted button {
+      display: inline-block;
+      margin-left: .4em; }
+  [mv-multiple] .mv-deleted:not([mv-mode="edit"]) {
+    display: none; }
+  [mv-multiple].gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 0.8; }
+  [mv-multiple].gu-transit {
+    opacity: 0.2; }
+
+.gu-hide {
+  display: none !important; }
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important; }
+
+button.mv-close {
+  all: unset;
+  float: right;
+  width: 1.1em;
+  padding-bottom: .1em;
+  border: none;
+  border-radius: 50%;
+  margin: 0 0 0 1em;
+  background: rgba(180, 0, 0, 0.6);
+  color: white;
+  font: bold 100%/1 sans-serif;
+  cursor: pointer;
+  text-align: center; }
+  button.mv-close:hover {
+    background: #b40000; }
+
+[mv-app] [property].mv-multiline {
+  white-space: pre-line; }
+
+[mv-mode="read"] {
+  --mv-mode: read; }
+
+[mv-mode="edit"] {
+  --mv-mode: edit; }
+
+[mv-mode=""] {
+  --mv-mode: initial; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) input.mv-editor,
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) select.mv-editor,
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) textarea.mv-editor {
+  all: unset;
+  cursor: auto; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]):not(input):not(select):not(textarea):hover {
+  -webkit-box-shadow: 0 0 0 50vmax rgba(255, 247, 0, 0.2) inset ;
+  box-shadow: 0 0 0 50vmax rgba(255, 247, 0, 0.2) inset ; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) textarea.mv-editor {
+  display: block;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) input.mv-editor {
+  max-width: 100%; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group]) select.mv-editor {
+  white-space: nowrap; }
+
+[property][mv-mode="edit"]:not([typeof]):not([mv-group])[mv-attribute="none"], [property][mv-mode="edit"]:not([typeof]):not([mv-group])[mv-attribute="null"] {
+  cursor: text; }
+  [property][mv-mode="edit"]:not([typeof]):not([mv-group])[mv-attribute="none"]:empty::before, [property][mv-mode="edit"]:not([typeof]):not([mv-group])[mv-attribute="null"]:empty::before {
+    content: "(" attr(aria-label) ")";
+    opacity: .5; }
+
+meta[property][mv-mode="edit"] {
+  display: inline-block;
+  padding: .15em .4em;
+  border: 1px dashed;
+  margin: 0 .2em;
+  color: gray;
+  font-weight: bold; }
+  meta[property][mv-mode="edit"]::before {
+    content: attr(property); }
+
+.mv-toggle[property]:not([aria-checked="true"]):not([mv-mode="edit"]) {
+  display: none; }
+
+.mv-toggle[property][mv-mode="edit"] {
+  cursor: pointer; }
+  .mv-toggle[property][mv-mode="edit"]:not([aria-checked]) {
+    opacity: .5; }
+
+.mv-dragover {
+  outline: 2px dashed rgba(0, 0, 0, 0.3);
+  outline-offset: -2px; }
+
+.mv-ui a {
+  color: inherit; }
+
+@media print {
+  .mv-ui {
+    display: none !important; } }
+
+@-webkit-keyframes message-appear {
+  from {
+    -webkit-transform: translateX(-50%) translateY(-10vh);
+    transform: translateX(-50%) translateY(-10vh);
+    opacity: 0; } }
+
+@keyframes message-appear {
+  from {
+    -webkit-transform: translateX(-50%) translateY(-10vh);
+    transform: translateX(-50%) translateY(-10vh);
+    opacity: 0; } }
+  .mv-message:not(.mv-inline) {
+    position: fixed;
+    top: 1em;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.2);
+    -webkit-animation: message-appear .5s backwards;
+    animation: message-appear .5s backwards;
+    font-size: 120%; }
+    .mv-message:not(.mv-inline) + .mv-message:not(.mv-inline) {
+      top: 4em;
+      -webkit-animation-delay: .5s;
+      animation-delay: .5s; }
+    .mv-message:not(.mv-inline) + .mv-message:not(.mv-inline) + .mv-message:not(.mv-inline) {
+      top: 7em;
+      -webkit-animation-delay: 1s;
+      animation-delay: 1s; }
+
+@-webkit-keyframes inline-message-appear {
+  from {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    opacity: 0; } }
+
+@keyframes inline-message-appear {
+  from {
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    opacity: 0; } }
+  .mv-message.mv-inline {
+    margin-bottom: 1em;
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    -webkit-animation: inline-message-appear .5s backwards;
+    animation: inline-message-appear .5s backwards; }
+  .mv-message form {
+    margin: .5em 0; }
+    .mv-message form input, .mv-message form textarea, .mv-message form select, .mv-message form button {
+      font: inherit;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box; }
+    .mv-message form textarea {
+      width: 100%;
+      height: 1.8em; }
+    .mv-message form button {
+      display: block;
+      margin: auto; }
+  .mv-message.mv-warning {
+    background: rgba(255, 242, 179, 0.9); }
+    .mv-message.mv-warning::before {
+      content: "⚠️ Warning: "; }
+  .mv-message.mv-error {
+    background: rgba(255, 179, 179, 0.9);
+    color: #660000;
+    --dark-color: #bf4040; }
+    .mv-message.mv-error::before {
+      content: "😳 Oh noes! "; }
+
+time[property][aria-label][mv-mode="edit"].mv-empty::before {
+  content: "(No " attr(aria-label) ")"; }
+
+[mv-app][mv-bar="none"] .mv-bar,
+.mv-bar:empty {
+  display: none; }

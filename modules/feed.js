@@ -1,6 +1,7 @@
 /* global google */
 
 import moment from 'moment'
+import unescapeHtml from 'voca/unescape_html'
 
 google.load('feeds', '1')
 
@@ -27,9 +28,9 @@ const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)
   entries.forEach(entry => {
     const a = document.createElement('a')
-    const linkText = document.createTextNode(entry.title)
+    const linkText = document.createTextNode(unescapeHtml(entry.title))
     a.appendChild(linkText)
-    a.title = entry.title
+    a.title = unescapeHtml(entry.title)
     a.href = entry.link
     container.appendChild(a)
 
@@ -40,7 +41,8 @@ const addResults = (entries, containerId) => {
 }
 
 const initialize = () => {
-  const feed = new google.feeds.Feed('https://www.reddit.com/r/CryptoCurrency.rss')
+  // Const feed = new google.feeds.Feed('https://www.reddit.com/r/CryptoCurrency.rss')
+  const feed = new google.feeds.Feed('https://www.reddit.com/r/Bitcoin.rss')
 
   feed.load(result => {
     if (!result.error) {
