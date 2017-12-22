@@ -1,6 +1,6 @@
 import moment from 'moment'
 import unescapeHtml from 'voca/unescape_html'
-import truncate from 'voca/truncate'
+import prune from 'voca/prune'
 
 const moreNews = document.getElementById('toggleFeed')
 
@@ -25,9 +25,9 @@ const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)
   entries.forEach(entry => {
     const a = document.createElement('a')
-    const linkText = document.createTextNode(truncate(unescapeHtml(entry.title), 100))
+    const linkText = document.createTextNode(prune(unescapeHtml(entry.title), 100))
     a.appendChild(linkText)
-    a.title = truncate(entry.title, 30)
+    a.title = prune(entry.title, 30)
     a.href = entry.link
     container.appendChild(a)
 
