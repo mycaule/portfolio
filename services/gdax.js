@@ -8,7 +8,7 @@ const gdax = axios.create({
   baseURL: 'https://api.gdax.com'
 })
 
-const Base = struct.enum(['BTC', 'ETH', 'LTC'])
+const Base = struct.enum(['BTC', 'ETH', 'LTC', 'BCH'])
 const Currency = struct.enum(['EUR', 'USD'])
 
 const RawCandles = struct([
