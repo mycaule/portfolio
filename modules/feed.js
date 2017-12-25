@@ -1,5 +1,3 @@
-import parser from 'rss-parser'
-
 import moment from 'moment'
 import unescapeHtml from 'voca/unescape_html'
 import prune from 'voca/prune'
@@ -34,17 +32,24 @@ const addResults = (entries, containerId) => {
     container.appendChild(a)
 
     const div = document.createElement('div')
-    div.appendChild(document.createTextNode(`Published ${moment(entry.isoDate).format('ddd MMM DD YYYY')}`))
+    div.appendChild(document.createTextNode(`Published ${moment(entry.pubDate).format('ddd MMM DD YYYY')}`))
     container.appendChild(div)
   })
 }
 
-parser.parseURL('https://www.reddit.com/r/Bitcoin.rss', (err, parsed) => {
-  if (err) {
-    console.log(err)
-  } else {
-    const top10 = parsed.feed.entries.slice(2, 12)
-    addResults(top10.slice(0, 5), 'feed5')
-    addResults(top10.slice(-5), 'feed10')
+const xhr = new XMLHttpRequest()
+
+xhr.onreadystatechange = () => {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    const data = JSON.parse(xhr.responseText)
+    if (data.status === 'ok') {
+      const top10 = data.items.slice(2, 12)
+      addResults(top10.slice(0, 5), 'feed5')
+      addResults(top10.slice(-5), 'feed10')
+    }
   }
-})
+}
+
+// https://www.reddit.com/r/CryptoCurrency.rss
+xhr.open('GET', `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.reddit.com/r/Bitcoin.rss')}`, true)
+xhr.send()
