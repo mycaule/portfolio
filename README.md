@@ -50,8 +50,8 @@ Regenerate the build and deploy to GitHub pages.
 
 - [ ] [Websocket feed](https://docs.gdax.com/#websocket-feed)
 - [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance)
+- [ ] Simulate trading strategies (like [exponential moving average](https://github.com/pirate/bitcoin-trader))
 - [ ] Errors with `superstruct` [returning-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/returning-errors.js), [throwing-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/throwing-errors.js), [custom-errors](https://github.com/ianstormtaylor/superstruct/blob/master/examples/custom-errors.js)
-- [ ] Allow users to change source of information
 
 ### License
 

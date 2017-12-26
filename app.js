@@ -4,7 +4,10 @@ import moment from 'moment'
 import coinbase from './services/coinbase'
 import gdax from './services/gdax'
 import charts from './modules/charts'
-import './modules/feed'
+import feed from './modules/feed'
+import changes from './modules/changes'
+
+feed.fetch('https://www.reddit.com/r/Bitcoin.rss')
 
 const $ = s => document.querySelector(s)
 
@@ -30,39 +33,6 @@ for (let i = 0; i < tabItems.length; i++) {
   }
 }
 
-const initHTMLFields = () => {
-  const ref = coinbase.reference()
-
-  const removeAll = selectbox => {
-    for (let i = selectbox.options.length - 1; i >= 0; i--) {
-      selectbox.remove(i)
-    }
-  }
-
-  const currencies = $('select[property=\'currency\']')
-  const bases = $('select[property=\'base\']')
-
-  removeAll(currencies)
-  removeAll(bases)
-
-  ref.bases.forEach(elt => {
-    const opt1 = document.createElement('option')
-    opt1.text = elt.text
-    opt1.value = elt.value
-    bases.add(opt1)
-  })
-
-  ref.currencies.forEach(elt => {
-    const opt2 = document.createElement('option')
-    opt2.text = elt.text
-    opt2.value = elt.value
-    currencies.add(opt2)
-  })
-
-  // Currencies.value = currency
-  // bases.value = base
-}
-
 const check = () => {
   const selCurrency = $('select[property=\'currency\']').value
   const selBase = $('select[property=\'base\']').value
@@ -82,6 +52,7 @@ const check = () => {
 
     $('meta[property=\'checked_time\']').content = moment().format('H:mm:ss')
     $('meta[property=\'checked_date\']').content = moment().format('MM/DD/YYYY')
+    $('meta[property=\'checked_date_format\']').content = moment().format('YYYY-MM-DD')
   })
 
   coinbase.historic('week', selBase, selCurrency).then(res => {
@@ -107,20 +78,51 @@ const check = () => {
   })
 }
 
-document.addEventListener('mv-change', evt => {
-  console.log(evt.action, evt.property, evt.value)
+const initDOM = () => {
+  const ref = coinbase.reference()
+  const refFeeds = feed.reference()
 
-  if (evt.action === 'propertychange') {
-    if (evt.property === 'base') {
-      check()
-    }
-
-    if (evt.property === 'currency') {
-      check()
+  const removeAll = selectbox => {
+    for (let i = selectbox.options.length - 1; i >= 0; i--) {
+      selectbox.remove(i)
     }
   }
-})
 
-initHTMLFields()
+  const currencies = $('select[property=\'currency\']')
+  const bases = $('select[property=\'base\']')
+  const feeds = $('select[property=\'feed\']')
 
-check()
+  removeAll(currencies)
+  removeAll(bases)
+  removeAll(feeds)
+
+  ref.bases.forEach(elt => {
+    const opt = document.createElement('option')
+    opt.text = elt.text
+    opt.value = elt.value
+    bases.add(opt)
+  })
+
+  ref.currencies.forEach(elt => {
+    const opt = document.createElement('option')
+    opt.text = elt.text
+    opt.value = elt.value
+    currencies.add(opt)
+  })
+
+  refFeeds.forEach(elt => {
+    const opt = document.createElement('option')
+    opt.text = elt.text
+    opt.value = elt.value
+    feeds.add(opt)
+  })
+
+  changes.listen({
+    base: check,
+    currency: check,
+    feed: feed.fetch
+  })
+  check()
+}
+
+initDOM()

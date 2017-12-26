@@ -50,6 +50,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "blissfuljs": "^1.0.5",
+    "date-fns": "^1.29.0",
     "echarts": "^3.8.5",
     "mavo": "^0.1.5",
     "moment": "^2.20.0",

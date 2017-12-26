@@ -19,6 +19,7 @@
   <meta property="spot" />
   <meta property="checked_time" />
   <meta property="checked_date" />
+  <meta property="checked_date_format" />
   <meta property="open1d" />
   <meta property="avg52w" />
   <meta property="min52w" />
@@ -101,94 +102,94 @@
       </div>
     </div>
     <div class="columns">
-      <div class="column col-8">
-        <div id="Summary" class="section">
-          <table class="table table-scroll">
-            <tr>
-              <th>Symbol</th>
-              <th>Last Price<br>Time</th>
-              <th>2 Day Performance</th>
-              <th>%Change<br>Day Change</th>
-              <th>Volume<br>30 Day Average</th>
-              <th>52 Week Range</th>
-            </tr>
-            <tr>
-              <td><select class="form-select" id="bases" property="base" mv-default="BTC"></select><br><select class="form-select" id="currencies" property="currency" mv-default="EUR"></select></td>
-              <td><b>[spot]</b><br>[checked_date]</td>
-              <td>
-                <div id="graphPerf2d"></div>
-              </td>
-              <td class="[iff(spot>open1d, 'text-success', 'text-error')]"><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
-              <td><b>[vol1d]</b><br>[avg_vol30d]</td>
-              <td>
-                <meter class="meter" property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
-                <br><small>[min52w]</small> - <small>[max52w]</small>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <div id="Holdings" class="section" style="display:none">
-          <table class="table table-scroll">
-            <tr>
-              <th>Symbol</th>
-              <th>Last Price<br>Time</th>
-              <th>% Change<br>Net Change</th>
-              <th>Day Gain<br>([currency])</th>
-              <th>Positions</th>
-              <th>Cost<br>Avg Price</th>
-              <th>Net Gain<br>([currency])</th>
-              <th>Value<br>([currency])</th>
-            </tr>
-            <tr>
-              <td><b>[base]-[currency]</b><br>.</td>
-              <td><b>[spot]</b><br>[checked_date]</td>
-              <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
-              <td class="[iff(gain1d>0, 'text-success', 'text-error')]"><b>[gain1d]</b><br>.</td>
-              <td><b>[sum(position1)]</b><br>[count(lot)] lots</td>
-              <td><b>[sum(position1*price1)]</b><br>[avg52w]</td>
-              <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
-              <td><b>[total_value]</b><br>.</td>
-            </tr>
-          </table>
-        </div>
-
-        <div id="Edit" class="section" style="display:none">
-          <table class="table table-scroll">
-            <tr>
-              <th>Symbol</th>
-              <th>Date</th>
-              <th>Position</th>
-              <th>Price</th>
-              <th>Delete</th>
-            </tr>
-            <tr property="lot" mv-mode="edit" mv-multiple>
-              <td>[base]-[currency]</td>
-              <td><input class="form-input input-sm" type="date" property="date1" mv-mode="edit" mv-default="2016-12-16"></time></td>
-              <td><input class="form-input input-sm" type="text" property="position1" mv-default="1"/></td>
-              <td><input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot]"/></td>
-              <td>
-                <div class="mv-item-bar mv-ui" mv-rel="lot">
-                  <!-- <button title="Delete this lot" class="mv-delete"><i class="icon icon-cross mv-delete"></i></button> -->
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
+      <div id="Summary" class="section">
+        <table class="table table-scroll">
+          <tr>
+            <th>Symbol</th>
+            <th>Last Price<br>Time</th>
+            <th>2 Day Performance</th>
+            <th>%Change<br>Day Change</th>
+            <th>Volume<br>30 Day Average</th>
+            <th>52 Week Range</th>
+          </tr>
+          <tr>
+            <td><select class="form-select" id="bases" property="base" mv-default="BTC"></select><br><select class="form-select" id="currencies" property="currency" mv-default="EUR"></select></td>
+            <td><b>[spot]</b><br>[checked_date]</td>
+            <td>
+              <div id="graphPerf2d"></div>
+            </td>
+            <td class="[iff(spot>open1d, 'text-success', 'text-error')]"><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
+            <td><b>[vol1d]</b><br>[avg_vol30d]</td>
+            <td>
+              <meter class="meter" property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
+              <br><small>[min52w]</small> - <small>[max52w]</small>
+            </td>
+          </tr>
+        </table>
       </div>
-      <div class="column col-4 hide-lg">
-        <p>
-          <h4>Watchlist News</h4>
-          <div id="feed5"></div>
-          <div id="feed10" class="more-news" style="display:none"></div>
-          <br>
-          <a href="#" id="toggleFeed">Show more watchlist news</a>
-        </p>
 
-        <p>
-          <h4>Benchmarks</h4>
-          ...
-        </p>
+      <div id="Holdings" class="section" style="display:none">
+        <table class="table table-scroll">
+          <tr>
+            <th>Symbol</th>
+            <th>Last Price<br>Time</th>
+            <th>% Change<br>Net Change</th>
+            <th>Day Gain<br>([currency])</th>
+            <th>Positions</th>
+            <th>Cost<br>Avg Price</th>
+            <th>Net Gain<br>([currency])</th>
+            <th>Value<br>([currency])</th>
+          </tr>
+          <tr>
+            <td><b>[base]-[currency]</b><br>.</td>
+            <td><b>[spot]</b><br>[checked_date]</td>
+            <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
+            <td class="[iff(gain1d>0, 'text-success', 'text-error')]"><b>[gain1d]</b><br>.</td>
+            <td><b>[sum(position1)]</b><br>[count(lot)] lots</td>
+            <td><b>[sum(position1*price1)]</b><br>[avg52w]</td>
+            <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
+            <td><b>[total_value]</b><br>.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="Edit" class="section" style="display:none">
+        <table class="table table-scroll">
+          <tr>
+            <th>Symbol</th>
+            <th>Date</th>
+            <th>Position</th>
+            <th>Price</th>
+            <th>Delete</th>
+          </tr>
+          <tr property="lot" mv-mode="edit" mv-multiple>
+            <td>[base]-[currency]</td>
+            <td><input class="form-input input-sm" type="date" property="date1" mv-mode="edit" mv-default="[checked_date_format]"></time></td>
+            <td><input class="form-input input-sm" type="text" property="position1" mv-default="0"/></td>
+            <td><input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot]"/></td>
+            <td>
+              <div class="mv-item-bar mv-ui" mv-rel="lot">
+                <!-- <button title="Delete this lot" class="mv-delete"><i class="icon icon-cross mv-delete"></i></button> -->
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h4>News</h4>
+    <div id="feed5"></div>
+    <div id="feed10" class="more-news" style="display:none"></div>
+    <br>
+
+    <div class="columns">
+      <div class="column col-3">
+        <a href="#" id="toggleFeed">Show more news</a>
+      </div>
+      <div class="column col-2">
+        <select class="form-select" id="feeds" property="feed"></select>
       </div>
     </div>
   </div>

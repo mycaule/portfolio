@@ -1,4 +1,8 @@
-import moment from 'moment'
+/* eslint camelcase: "off" */
+
+import axios from 'axios'
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
 import unescapeHtml from 'voca/unescape_html'
 import prune from 'voca/prune'
 
@@ -16,13 +20,15 @@ const toggleFeed = () => {
     word = 'more'
   }
 
-  moreNews.textContent = `Show ${word} watchlist news`
+  moreNews.textContent = `Show ${word} news`
 }
 
 moreNews.onclick = () => toggleFeed()
 
 const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)
+  container.innerHTML = ''
+
   entries.forEach(entry => {
     const a = document.createElement('a')
     const linkText = document.createTextNode(prune(unescapeHtml(entry.title), 100))
@@ -32,24 +38,30 @@ const addResults = (entries, containerId) => {
     container.appendChild(a)
 
     const div = document.createElement('div')
-    div.appendChild(document.createTextNode(`Published ${moment(entry.pubDate).format('ddd MMM DD YYYY')}`))
+    div.appendChild(document.createTextNode(`Published ${format(parse(entry.pubDate), 'ddd MMM DD YYYY')}`))
     container.appendChild(div)
   })
 }
 
-const xhr = new XMLHttpRequest()
-
-xhr.onreadystatechange = () => {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    const data = JSON.parse(xhr.responseText)
-    if (data.status === 'ok') {
-      const top10 = data.items.slice(2, 12)
-      addResults(top10.slice(0, 5), 'feed5')
-      addResults(top10.slice(-5), 'feed10')
-    }
-  }
-}
+const rss2json = axios.create({
+  baseURL: 'https://api.rss2json.com/v1',
+  timeout: 3000
+})
 
 // https://www.reddit.com/r/CryptoCurrency.rss
-xhr.open('GET', `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://www.reddit.com/r/Bitcoin.rss')}`, true)
-xhr.send()
+// https://www.reddit.com/r/Bitcoin.rss
+const fetch = rss_url =>
+  rss2json.get('/api.json', {
+    params: {
+      rss_url
+    }
+  }).then(res => {
+    const data = res.data
+    const top10 = data.items.slice(0, 10)
+    addResults(top10.slice(0, 5), 'feed5')
+    addResults(top10.slice(-5), 'feed10')
+  })
+
+const reference = () => [{text: 'Reddit / CryptoCurrency', value: 'https://www.reddit.com/r/CryptoCurrency.rss'}, {text: 'Reddit / Bitcoin', value: 'https://www.reddit.com/r/Bitcoin.rss'}, {text: 'Coindesk', value: 'https://feeds.feedburner.com/CoinDesk'}]
+
+export default {fetch, reference}
