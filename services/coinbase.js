@@ -8,7 +8,7 @@ const coinbase = axios.create({
   timeout: 3000
 })
 
-const bases = [{text: 'BITCOIN', value: 'BTC'}, {text: 'ETHEREUM', value: 'ETH'}, {text: 'LITECOIN', value: 'LTC'}, {text: 'BITCASH', value: 'BCH'}]
+const bases = [{text: 'BITCOIN', value: 'BTC'}, {text: 'ETHEREUM', value: 'ETH'}, {text: 'LITECOIN', value: 'LTC'}, {text: 'BCASH', value: 'BCH'}]
 const currencies = [{text: 'EURO', value: 'EUR'}, {text: 'US DOLLAR', value: 'USD'}]
 
 const Base = struct.enum(bases.map(x => x.value))

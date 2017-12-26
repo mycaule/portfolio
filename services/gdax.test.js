@@ -1,18 +1,19 @@
-import {test, skip} from 'ava'
+import {test} from 'ava'
 
 import WebSocket from 'ws'
 import gdax from './gdax'
 
 global.WebSocket = WebSocket
 
-skip('candles', async t => {
-  const result = await gdax.candles()
-  t.is(result.length, 30)
+test('products', async t => {
+  const result = await gdax.products()
+  const productIds = result.map(_ => _.id)
+  t.deepEqual(productIds.sort(), ['BCH-USD', 'BTC-EUR', 'BTC-GBP', 'BTC-USD', 'ETH-BTC', 'ETH-EUR', 'ETH-USD', 'LTC-BTC', 'LTC-EUR', 'LTC-USD'])
 })
 
 test('candles', async t => {
-  await gdax.candles()
-  t.true(true)
+  const result = await gdax.candles()
+  t.is(result.length, 30)
 })
 
 test('ticker', async t => {

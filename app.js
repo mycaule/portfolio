@@ -76,6 +76,9 @@ const check = () => {
   gdax.ticker(selBase, selCurrency).then(res => {
     $('meta[property=\'vol1d\']').content = `${(res.volume_24h / 1000).toFixed(2)} M`
     $('meta[property=\'avg_vol30d\']').content = `${(res.volume_30d / 30 / 1000).toFixed(2)} M`
+  }).catch(() => {
+    $('meta[property=\'vol1d\']').content = 'N/A'
+    $('meta[property=\'avg_vol30d\']').content = 'N/A'
   })
 }
 
