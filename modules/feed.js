@@ -62,6 +62,6 @@ const fetch = rss_url =>
     addResults(top10.slice(-5), 'feed10')
   })
 
-const reference = () => [{text: 'Reddit / CryptoCurrency', value: 'https://www.reddit.com/r/CryptoCurrency.rss'}, {text: 'Reddit / Bitcoin', value: 'https://www.reddit.com/r/Bitcoin.rss'}, {text: 'Coindesk', value: 'https://feeds.feedburner.com/CoinDesk'}]
+const reference = () => [{text: 'Reddit / CryptoCurrency', value: 'https://www.reddit.com/r/CryptoCurrency.rss'}, {text: 'Reddit / Bitcoin', value: 'https://www.reddit.com/r/Bitcoin.rss'}, {text: 'Reddit / Litecoin', value: 'https://www.reddit.com/r/Litecoin.rss'}, {text: 'Reddit / Ethereum', value: 'https://www.reddit.com/r/Ethereum.rss'}, {text: 'Reddit / BCash', value: 'https://www.reddit.com/r/BCash.rss'}, {text: 'Coindesk', value: 'https://feeds.feedburner.com/CoinDesk'}]
 
 export default {fetch, reference}
