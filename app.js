@@ -1,6 +1,6 @@
 /* eslint import/no-unassigned-import: "off" */
 
-import moment from 'moment'
+import {parse, format, startOfDay, subDays, differenceInSeconds} from 'date-fns'
 import coinbase from './services/coinbase'
 import gdax from './services/gdax'
 import charts from './modules/charts'
@@ -50,20 +50,21 @@ const check = () => {
       $('meter[property=\'range52w\']').value = spot
     })
 
-    $('meta[property=\'checked_time\']').content = moment().format('H:mm:ss')
-    $('meta[property=\'checked_date\']').content = moment().format('MM/DD/YYYY')
-    $('meta[property=\'checked_date_format\']').content = moment().format('YYYY-MM-DD')
+    const now = new Date()
+    $('meta[property=\'checked_time\']').content = format(now, 'H:mm:ss')
+    $('meta[property=\'checked_date\']').content = format(now, 'MM/DD/YYYY')
+    $('meta[property=\'checked_date_format\']').content = format(now, 'YYYY-MM-DD')
   })
 
   coinbase.historic('week', selBase, selCurrency).then(res => {
-    const oneDayAgo = moment(res.prices[0].time).startOf('day')
-    const twoDaysAgo = moment(res.prices[0].time).startOf('day').subtract(1, 'days')
+    const oneDayAgo = startOfDay(parse(res.prices[0].time))
+    const twoDaysAgo = subDays(startOfDay(parse(res.prices[0].time)), 1)
 
-    const prices2d = res.prices.filter(_ => moment(_.time).diff(twoDaysAgo) >= 0).reverse()
+    const prices2d = res.prices.filter(_ => differenceInSeconds(parse(_.time), twoDaysAgo) >= 0).reverse()
 
     const times = prices2d.map(_ => _.time)
-    const prices1 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) >= 0)
-    const prices2 = prices2d.filter(_ => moment(_.time).diff(oneDayAgo) < 0)
+    const prices1 = prices2d.filter(_ => differenceInSeconds(parse(_.time), oneDayAgo) >= 0)
+    const prices2 = prices2d.filter(_ => differenceInSeconds(parse(_.time), oneDayAgo) < 0)
 
     const spot = $('meta[property=\'spot\']').content
     charts.draw(times, spot, prices1, prices2)

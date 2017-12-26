@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import {struct} from 'superstruct'
-import moment from 'moment'
+import {parse, format, subDays} from 'date-fns'
 
 const gdax = axios.create({
   baseURL: 'https://api.gdax.com'
@@ -24,18 +24,20 @@ const Candle = struct({
   volume: 'number'
 })
 
-const candles = (b = 'BTC', c = 'EUR') =>
-  gdax.get(`/products/${Base(b)}-${Currency(c)}/candles`, {
+const candles = (b = 'BTC', c = 'EUR') => {
+  const now = new Date()
+  return gdax.get(`/products/${Base(b)}-${Currency(c)}/candles`, {
     params: {
-      start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
-      end: moment().format('YYYY-MM-DD'),
+      start: format(subDays(now, 30), 'YYYY-MM-DD'),
+      end: format(now, 'YYYY-MM-DD'),
       granularity: 24 * 60 * 60
     }
   }).then(resp => {
     RawCandles(resp.data).map(x => {
       const [time, low, high, open, close, volume] = x
-      return Candle({time: moment.unix(time).format('YYYY-MM-DD'), low, high, open, close, volume})
+      return Candle({time: format(parse(time), 'YYYY-MM-DD'), low, high, open, close, volume})
     })
   })
+}
 
 export default {candles}

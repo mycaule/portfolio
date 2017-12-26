@@ -1,12 +1,36 @@
-/* eslint camelcase: "off" */
-
-import axios from 'axios'
-import parse from 'date-fns/parse'
-import format from 'date-fns/format'
+import {parse, format} from 'date-fns'
 import unescapeHtml from 'voca/unescape_html'
 import prune from 'voca/prune'
+import rss2json from '../services/rss2json'
 
 const moreNews = document.getElementById('toggleFeed')
+
+const websites = [
+  {
+    text: '/r/CryptoCurrency',
+    value: 'https://www.reddit.com/r/CryptoCurrency.rss',
+    original: 'https://www.reddit.com/r/CryptoCurrency'
+  }, {
+    text: '/r/Bitcoin',
+    value: 'https://www.reddit.com/r/Bitcoin.rss',
+    original: 'https://www.reddit.com/r/Bitcoin'
+  }, {
+    text: '/r/Litecoin',
+    value: 'https://www.reddit.com/r/Litecoin.rss',
+    original: 'https://www.reddit.com/r/Litecoin'
+  }, {
+    text: '/r/Ethereum',
+    value: 'https://www.reddit.com/r/Ethereum.rss',
+    original: 'https://www.reddit.com/r/Ethereum'
+  }, {
+    text: '/r/BCash',
+    value: 'https://www.reddit.com/r/BCash.rss',
+    original: 'https://www.reddit.com/r/BCash'
+  }, {
+    text: 'Coindesk',
+    value: 'https://feeds.feedburner.com/CoinDesk',
+    original: 'https://www.coindesk.com'
+  }]
 
 const toggleFeed = () => {
   const section = document.getElementById('feed10')
@@ -38,30 +62,27 @@ const addResults = (entries, containerId) => {
     container.appendChild(a)
 
     const div = document.createElement('div')
-    div.appendChild(document.createTextNode(`Published ${format(parse(entry.pubDate), 'ddd MMM DD YYYY')}`))
+    div.appendChild(document.createTextNode(entry.pubDate ? `Published ${format(parse(entry.pubDate), 'ddd MMM DD YYYY')}` : ''))
     container.appendChild(div)
   })
 }
 
-const rss2json = axios.create({
-  baseURL: 'https://api.rss2json.com/v1',
-  timeout: 3000
-})
+const fetch = url =>
+  rss2json.convert(url)
+    .then(_ => {
+      const top10 = _.items ? _.items.slice(0, 10) : [{title: 'No news available', pubDate: '', link: url}]
+      addResults(top10.slice(0, 5), 'feed5')
+      addResults(top10.slice(5, 10), 'feed10')
+    }).catch(() => {
+      const elt = websites.find(_ => _.value === url)
+      addResults([{
+        title: `${elt.text}: RSS unavailable`,
+        pubDate: '',
+        link: elt.original
+      }], 'feed5')
+      addResults([], 'feed10')
+    })
 
-// https://www.reddit.com/r/CryptoCurrency.rss
-// https://www.reddit.com/r/Bitcoin.rss
-const fetch = rss_url =>
-  rss2json.get('/api.json', {
-    params: {
-      rss_url
-    }
-  }).then(res => {
-    const data = res.data
-    const top10 = data.items.slice(0, 10)
-    addResults(top10.slice(0, 5), 'feed5')
-    addResults(top10.slice(-5), 'feed10')
-  })
-
-const reference = () => [{text: 'Reddit / CryptoCurrency', value: 'https://www.reddit.com/r/CryptoCurrency.rss'}, {text: 'Reddit / Bitcoin', value: 'https://www.reddit.com/r/Bitcoin.rss'}, {text: 'Reddit / Litecoin', value: 'https://www.reddit.com/r/Litecoin.rss'}, {text: 'Reddit / Ethereum', value: 'https://www.reddit.com/r/Ethereum.rss'}, {text: 'Reddit / BCash', value: 'https://www.reddit.com/r/BCash.rss'}, {text: 'Coindesk', value: 'https://feeds.feedburner.com/CoinDesk'}]
+const reference = () => websites
 
 export default {fetch, reference}
