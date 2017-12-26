@@ -1,4 +1,5 @@
 /* eslint new-cap: "off" */
+/* eslint camelcase: "off" */
 
 import axios from 'axios'
 import {struct} from 'superstruct'
@@ -24,6 +25,29 @@ const Candle = struct({
   volume: 'number'
 })
 
+const Ticker = struct({
+  type: struct.enum(['ticker']),
+  sequence: 'number',
+  product_id: struct.enum(['BTC-EUR', 'ETH-EUR', 'LTC-EUR', 'BCH-EUR', 'BTC-USD', 'ETH-USD', 'LTC-USD', 'BCH-USD']),
+  price: 'string',
+  open_24h: 'string',
+  volume_24h: 'string',
+  low_24h: 'string',
+  high_24h: 'string',
+  volume_30d: 'string',
+  best_bid: 'string',
+  best_ask: 'string',
+  side: struct.optional(struct.enum(['sell', 'buy'])),
+  time: 'string?',
+  trade_id: 'number?',
+  last_size: 'string?'
+})
+
+const Subscriptions = struct({
+  type: struct.enum(['subscriptions']),
+  channels: ['object']
+})
+
 const candles = (b = 'BTC', c = 'EUR') => {
   const now = new Date()
   return gdax.get(`/products/${Base(b)}-${Currency(c)}/candles`, {
@@ -40,4 +64,40 @@ const candles = (b = 'BTC', c = 'EUR') => {
   })
 }
 
-export default {candles}
+const ticker = (base, currency) => {
+  return new Promise((resolve, reject) => {
+    const ws = new WebSocket('wss://ws-feed.gdax.com')
+
+    ws.onopen = () => {
+      const msg = {
+        type: 'subscribe',
+        product_ids: [
+          `${base}-${currency}`
+        ],
+        channels: ['ticker']
+      }
+
+      ws.send(JSON.stringify(msg))
+    }
+
+    ws.onclose = () => {
+      console.log('gdax', 'disconnect')
+    }
+
+    ws.onmessage = msg => {
+      const data = struct.union([Ticker, Subscriptions])(JSON.parse(msg.data))
+
+      if (data.type === 'ticker') {
+        ws.close()
+
+        resolve(data)
+      }
+    }
+
+    ws.onerror = err => {
+      reject(err)
+    }
+  })
+}
+
+export default {candles, ticker}

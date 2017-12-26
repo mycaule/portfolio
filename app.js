@@ -73,9 +73,9 @@ const check = () => {
   })
 
   console.log('checking gdax...')
-  gdax.candles(selBase, selCurrency).then(res => {
-    $('meta[property=\'vol1d\']').content = `${(res[0].volume / 1000).toFixed(2)} M`
-    $('meta[property=\'avg_vol30d\']').content = `${(res.slice(0, 30).reduce((acc, _) => acc + _.volume, 0) / (30 * 1000)).toFixed(2)} M`
+  gdax.ticker(selBase, selCurrency).then(res => {
+    $('meta[property=\'vol1d\']').content = `${(res.volume_24h / 1000).toFixed(2)} M`
+    $('meta[property=\'avg_vol30d\']').content = `${(res.volume_30d / 30 / 1000).toFixed(2)} M`
   })
 }
 

@@ -11,3 +11,8 @@ test('candles', async t => {
   await gdax.candles()
   t.true(true)
 })
+
+skip('ticker', async t => {
+  await gdax.ticker()
+  t.true(true)
+})

@@ -30,6 +30,10 @@ const websites = [
     text: 'Coindesk',
     value: 'https://feeds.feedburner.com/CoinDesk',
     original: 'https://www.coindesk.com'
+  }, {
+    text: 'BitcoinCore',
+    value: 'https://bitcoincore.org/en/rss.xml',
+    original: 'https://bitcoincore.org/'
   }]
 
 const toggleFeed = () => {

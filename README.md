@@ -48,7 +48,6 @@ Regenerate the build and deploy to GitHub pages.
 
 ### Roadmap
 
-- [ ] [Websocket feed](https://docs.gdax.com/#websocket-feed)
 - [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance)
 - [ ] Simulate trading strategies (like [exponential moving average](https://github.com/pirate/bitcoin-trader))
 
