@@ -59,7 +59,7 @@ const candles = (b = 'BTC', c = 'EUR') => {
     params: {
       start: format(subDays(now, 30), 'YYYY-MM-DD'),
       end: format(now, 'YYYY-MM-DD'),
-      granularity: 24 * 60 * 60
+      granularity: 86400
     }
   }).then(_ =>
     RawCandles(_.data).map(x => {
