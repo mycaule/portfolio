@@ -50,6 +50,7 @@ Regenerate the build and deploy to GitHub pages.
 
 - [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance)
 - [ ] Simulate trading strategies (like [exponential moving average](https://github.com/pirate/bitcoin-trader))
+- [ ] Migrate to Vue.js
 
 ### License
 

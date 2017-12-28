@@ -3,9 +3,14 @@
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
 
-const perf2d = echarts.init(document.getElementById('graphPerf2d'))
+const graphs = {
+  1: echarts.init(document.getElementById(`graphPerf2d1`)),
+  2: echarts.init(document.getElementById(`graphPerf2d2`)),
+  3: echarts.init(document.getElementById(`graphPerf2d3`)),
+  4: echarts.init(document.getElementById(`graphPerf2d4`))
+}
 
-const draw = (times, spot, prices1, prices2) => {
+const draw = (times, spot, [prices1, prices2], i) => {
   const option = {
     xAxis: [
       {
@@ -57,7 +62,7 @@ const draw = (times, spot, prices1, prices2) => {
     ]
   }
 
-  perf2d.setOption(option)
+  graphs[i].setOption(option)
 }
 
 export default {draw}

@@ -1,212 +1,516 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Watchlist</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="fb:app_id" content="1968068840134141" />
-  <meta property="og:url" content="https://mycaule.github.io/portfolo" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Bitcoin Watchlist" />
-  <meta property="og:description" content="Bitcoin Watchlist" />
-  <meta property="og:image" content="https://dummyimage.com/600x400/000/fff" />
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Watchlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="fb:app_id" content="1968068840134141">
+    <meta property="og:url" content="https://mycaule.github.io/portfolo">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Bitcoin Watchlist">
+    <meta property="og:description" content="Bitcoin Watchlist">
+    <meta property="og:image" content="https://dummyimage.com/600x400/000/fff">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
 
-<body mv-app mv-storage="local" mv-autosave="0" mv-bar="none">
-  <meta property="spot" />
-  <meta property="checked_time" />
-  <meta property="checked_date" />
-  <meta property="checked_date_format" />
-  <meta property="open1d" />
-  <meta property="avg52w" />
-  <meta property="min52w" />
-  <meta property="max52w" />
-  <meta property="vol1d" />
-  <meta property="avg_vol30d" />
-  <meta property="total_value" content="[sum(position1 * spot)]" />
-  <meta property="gain1d" content="[sum(position1 * (spot - open1d))]" />
-  <meta property="gain_total" content="[sum(position1 * (spot - price1))]" />
+  <body mv-app mv-storage="local" mv-autosave="0" mv-bar="none">
+    <meta property="base1" content="BTC">
+    <meta property="base2" content="ETH">
+    <meta property="base3" content="LTC">
+    <meta property="base4" content="BCH">
+    <meta property="spot">
+    <meta property="spot1">
+    <meta property="spot2">
+    <meta property="spot3">
+    <meta property="spot4">
+    <meta property="checked_time">
+    <meta property="checked_time_hourminute">
+    <meta property="checked_date">
+    <meta property="checked_date_daymonthyear">
+    <meta property="open1d1">
+    <meta property="open1d2">
+    <meta property="open1d3">
+    <meta property="open1d4">
+    <meta property="min52w1">
+    <meta property="min52w2">
+    <meta property="min52w3">
+    <meta property="min52w4">
+    <meta property="max52w1">
+    <meta property="max52w2">
+    <meta property="max52w3">
+    <meta property="max52w4">
+    <meta property="vol1d1">
+    <meta property="vol1d2">
+    <meta property="vol1d3">
+    <meta property="vol1d4">
+    <meta property="avg_vol30d1">
+    <meta property="avg_vol30d2">
+    <meta property="avg_vol30d3">
+    <meta property="avg_vol30d4">
+    <meta property="total_value" content="[total_value1+total_value2+total_value3+total_value4]">
+    <meta property="total_value1" content="[position1 * spot1]">
+    <meta property="total_value2" content="[position2 * spot2]">
+    <meta property="total_value3" content="[position3 * spot3]">
+    <meta property="total_value4" content="[position4 * spot4]">
+    <meta property="gain1d" content="[gain1d1+gain1d2+gain1d3+gain1d4]">
+    <meta property="gain1d1" content="[position1 * (spot1 - open1d1)]">
+    <meta property="gain1d2" content="[position2 * (spot2 - open1d2)]">
+    <meta property="gain1d3" content="[position3 * (spot3 - open1d3)]">
+    <meta property="gain1d4" content="[position4 * (spot4 - open1d4)]">
+    <meta property="gain_total" content="[gain_total1+gain_total2+gain_total3+gain_total4]">
+    <meta property="gain_total1" content="[position1 * (spot1 - price1)]">
+    <meta property="gain_total2" content="[position2 * (spot2 - price2)]">
+    <meta property="gain_total3" content="[position3 * (spot3 - price3)]">
+    <meta property="gain_total4" content="[position4 * (spot4 - price4)]">
 
-  <div id="fb-root"></div>
-  <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=1968068840134141';
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-
-  <div class="container">
-    <h4>Watchlist</h4>
-  </div>
-  <div class="container">
-    <div class="columns">
-      <div class="column col-1"></div>
-      <div class="column col-9">
-        <table class="table table-scroll">
-          <tr>
-            <th>Total Value ([currency])</th>
-            <th>Day Gain ([currency])</th>
-            <th></th>
-            <th>Total Gain ([currency])</th>
-          </tr>
-          <tr>
-            <td><h5>[total_value]</h5></td>
-            <td class="[iff(gain1d>0, 'text-success', 'text-error')]">
-              <div class="columns">
-                <div class="column">
-                  <i class="icon [iff(gain1d>0, 'icon-upward', 'icon-downward')]"></i> [gain1d]
+    <div class="container">
+      <h4>Watchlist</h4>
+    </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column col-1"></div>
+        <div class="column col-9">
+          <table class="table table-scroll">
+            <tr>
+              <th>Total Value ([currency])</th>
+              <th>Day Gain ([currency])</th>
+              <th></th>
+              <th>Total Gain ([currency])</th>
+            </tr>
+            <tr>
+              <td>
+                <h5>[total_value]</h5>
+              </td>
+              <td class="[iff(gain1d>0, 'text-success', 'text-error')]">
+                <div class="columns">
+                  <div class="column">
+                    <i class="icon [iff(gain1d>0, 'icon-upward', 'icon-downward')]"></i>
+                    [gain1d]
+                  </div>
+                  <div class="divider-vert"></div>
+                  <div class="column">
+                    <small>[gain1d / (total_value-gain1d) * 100]%</small>
+                  </div>
                 </div>
-                <div class="divider-vert"></div>
-                <div class="column">
-                  <small>[gain1d / (total_value-gain1d) * 100]%</small>
+              </td>
+              <td></td>
+              <td class="[iff(gain_total>0, 'text-success', 'text-error')]">
+                <div class="columns">
+                  <div class="column">
+                    <i class="icon [iff(gain_total>0, 'icon-upward', 'icon-downward')]"></i>
+                    [gain_total]
+                  </div>
+                  <div class="divider-vert"></div>
+                  <div class="column">
+                    <small>[gain_total/(total_value-gain_total) * 100]%</small>
+                  </div>
                 </div>
-              </div>
-            </td>
-            <td></td>
-            <td class="[iff(gain_total>0, 'text-success', 'text-error')]">
-              <div class="columns">
-                <div class="column">
-                  <i class="icon [iff(gain_total>0, 'icon-upward', 'icon-downward')]"></i> [gain_total]
-                </div>
-                <div class="divider-vert"></div>
-                <div class="column">
-                  <small>[gain_total/(total_value-gain_total) * 100]%</small>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="column col-2 hide-md">
+          <blockquote>
+            <b>Last update</b>
+            <br>
+            [checked_time]<br>
+            [checked_date]
+          </blockquote>
+        </div>
       </div>
-      <div class="column col-2 hide-md">
-        <blockquote>
-          <b>Last update</b><br>
-          [checked_time]<br>
-          [checked_date]
-        </blockquote>
+
+      <div class="columns">
+        <div class="column col-3">
+          <ul class="tab tab-block">
+            <li class="tab-item active">
+              <a href="#">Summary</a>
+            </li>
+            <li class="tab-item">
+              <a href="#">Holdings</a>
+            </li>
+            <li class="tab-item">
+              <a href="#">Edit</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="columns">
+        <div id="Summary" class="section">
+          <table class="table table-scroll">
+            <tr>
+              <th>Symbol</th>
+              <th>
+                Last Price<br>Time
+              </th>
+              <th>2 Day Performance</th>
+              <th>
+                %Change<br>Day Change
+              </th>
+              <th>
+                Volume<br>30 Day Average
+              </th>
+              <th>52 Week Range</th>
+            </tr>
+            <tr style="[iff(position1>0, '', 'display:none')]">
+              <td><b>[base1]</b><br>[label(base1)]</td>
+              <td>
+                <b>[spot1]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td>
+                <div id="graphPerf2d1"></div>
+              </td>
+              <td class="[iff(spot1>open1d1, 'text-success', 'text-error')]">
+                <b>[(spot1/open1d1-1)*100]%</b>
+                <br>[spot1-open1d1]
+              </td>
+              <td>
+                <b>[vol1d1]</b>
+                <br>[avg_vol30d1]
+              </td>
+              <td>
+                <meter class="meter" property="range52w1" min="[min52w1]" value="[spot1]" max="[max52w1]" datatype="number"></meter>
+                <br>
+                <small>[min52w1]</small> - <small>[max52w1]</small>
+              </td>
+            </tr>
+            <tr style="[iff(position2>0, '', 'display:none')]">
+              <td><b>[base2]</b><br>[label(base2)]</td>
+              <td>
+                <b>[spot2]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td>
+                <div id="graphPerf2d2"></div>
+              </td>
+              <td class="[iff(spot2>open1d2, 'text-success', 'text-error')]">
+                <b>[(spot2/open1d2-1)*100]%</b>
+                <br>[spot2-open1d2]
+              </td>
+              <td>
+                <b>[vol1d2]</b>
+                <br>[avg_vol30d2]
+              </td>
+              <td>
+                <meter class="meter" property="range52w2" min="[min52w2]" value="[spot2]" max="[max52w2]" datatype="number">
+                </meter>
+                <br>
+                <small>[min52w2]</small> - <small>[max52w2]</small>
+              </td>
+            </tr>
+            <tr style="[iff(position3>0, '', 'display:none')]">
+              <td><b>[base3]</b><br>[label(base3)]</td>
+              <td>
+                <b>[spot3]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td>
+                <div id="graphPerf2d3"></div>
+              </td>
+              <td class="[iff(spot3>open1d3, 'text-success', 'text-error')]">
+                <b>[(spot3/open1d3-1)*100]%</b>
+                <br>[spot3-open1d3]
+              </td>
+              <td>
+                <b>[vol1d3]</b>
+                <br>[avg_vol30d3]
+              </td>
+              <td>
+                <meter class="meter" property="range52w3" min="[min52w3]" value="[spot3]" max="[max52w3]" datatype="number">
+                </meter>
+                <br>
+                <small>[min52w3]</small> - <small>[max52w3]</small>
+              </td>
+            </tr>
+            <tr style="[iff(position4>0, '', 'display:none')]">
+              <td><b>[base4]</b><br>[label(base4)]</td>
+              <td>
+                <b>[spot4]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td>
+                <div id="graphPerf2d4"></div>
+              </td>
+              <td class="[iff(spot4>open1d4, 'text-success', 'text-error')]">
+                <b>[(spot4/open1d4-1)*100]%</b>
+                <br>[spot4-open1d4]
+              </td>
+              <td>
+                <b>[vol1d4]</b>
+                <br>[avg_vol30d4]
+              </td>
+              <td>
+                <meter class="meter" property="range52w4" min="[min52w4]" value="[spot4]" max="[max52w4]" datatype="number">
+                </meter>
+                <br>
+                <small>[min52w4]</small> - <small>[max52w4]</small>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="Holdings" class="section" style="display:none">
+          <table class="table table-scroll">
+            <tr>
+              <th>Symbol</th>
+              <th>
+                Last Price<br>Time
+              </th>
+              <th>
+                % Change<br>Net Change
+              </th>
+              <th>
+                Day Gain<br>([currency])
+              </th>
+              <th>Positions</th>
+              <th>
+                Cost<br>Avg Price
+              </th>
+              <th>
+                Net Gain<br>([currency])
+              </th>
+              <th>
+                Value<br>([currency])
+              </th>
+            </tr>
+            <tr style="[iff(position1>0, '', 'display:none')]">
+              <td>
+                <b>[base1]</b>
+                <br>[label(base1)]
+              </td>
+              <td>
+                <b>[spot1]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td class="[iff(gain_total1>0, 'text-success', 'text-error')]">
+                <b>[gain_total1/(total_value1-gain_total1) * 100]%</b>
+                <br>[gain_total1]
+              </td>
+              <td class="[iff(gain1d1>0, 'text-success', 'text-error')]">
+                <b>[gain1d1]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position1]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position1*price1]</b>
+                <br>[price1]
+              </td>
+              <td class="[iff(gain_total1>0, 'text-success', 'text-error')]">
+                <b>[gain_total1/(total_value1-gain_total1) * 100]%</b>
+                <br>[gain_total1]
+              </td>
+              <td>
+                <b>[total_value1]</b>
+                <br>.
+              </td>
+            </tr>
+            <tr style="[iff(position2>0, '', 'display:none')]">
+              <td>
+                <b>[base2]</b>
+                <br>[label(base2)]
+              </td>
+              <td>
+                <b>[spot2]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td class="[iff(gain_total2>0, 'text-success', 'text-error')]">
+                <b>[gain_total2/(total_value2-gain_total2) * 100]%</b>
+                <br>[gain_total2]
+              </td>
+              <td class="[iff(gain1d2>0, 'text-success', 'text-error')]">
+                <b>[gain1d2]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position2]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position2*price2]</b>
+                <br>[price2]
+              </td>
+              <td class="[iff(gain_total2>0, 'text-success', 'text-error')]">
+                <b>[gain_total2/(total_value2-gain_total2) * 100]%</b>
+                <br>[gain_total2]
+              </td>
+              <td>
+                <b>[total_value2]</b>
+                <br>.
+              </td>
+            </tr>
+            <tr style="[iff(position3>0, '', 'display:none')]">
+              <td>
+                <b>[base3]</b>
+                <br>[label(base3)]
+              </td>
+              <td>
+                <b>[spot3]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td class="[iff(gain_total3>0, 'text-success', 'text-error')]">
+                <b>[gain_total3/(total_value3-gain_total3) * 100]%</b>
+                <br>[gain_total3]
+              </td>
+              <td class="[iff(gain1d3>0, 'text-success', 'text-error')]">
+                <b>[gain1d3]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position3]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position3*price3]</b>
+                <br>[price3]
+              </td>
+              <td class="[iff(gain_total3>0, 'text-success', 'text-error')]">
+                <b>[gain_total3/(total_value3-gain_total3) * 100]%</b>
+                <br>[gain_total3]
+              </td>
+              <td>
+                <b>[total_value3]</b>
+                <br>.
+              </td>
+            </tr>
+            <tr style="[iff(position4>0, '', 'display:none')]">
+              <td>
+                <b>[base4]</b>
+                <br>[label(base4)]
+              </td>
+              <td>
+                <b>[spot4]</b>
+                <br>[checked_time_hourminute]
+              </td>
+              <td class="[iff(gain_total4>0, 'text-success', 'text-error')]">
+                <b>[gain_total4/(total_value4-gain_total4) * 100]%</b>
+                <br>[gain_total4]
+              </td>
+              <td class="[iff(gain1d4>0, 'text-success', 'text-error')]">
+                <b>[gain1d4]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position4]</b>
+                <br>.
+              </td>
+              <td>
+                <b>[position4*price4]</b>
+                <br>[price4]
+              </td>
+              <td class="[iff(gain_total4>0, 'text-success', 'text-error')]">
+                <b>[gain_total4/(total_value4-gain_total4) * 100]%</b>
+                <br>[gain_total4]
+              </td>
+              <td>
+                <b>[total_value4]</b>
+                <br>.
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="Edit" class="section" style="display:none">
+          <table class="table table-scroll">
+            <tr>
+              <th>Symbol</th>
+              <th>Date</th>
+              <th>Position</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>[base1]</td>
+              <td>
+                <input class="form-input input-sm" type="date" property="date1" mv-mode="edit" mv-default="[checked_date_daymonthyear]">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" property="position1" mv-default="0">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot1]">
+              </td>
+            </tr>
+            <tr>
+              <td>[base2]</td>
+              <td>
+                <input class="form-input input-sm" type="date" property="date2" mv-mode="edit" mv-default="[checked_date_daymonthyear]">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" property="position2" mv-default="0">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" min="300" property="price2" mv-default="[spot2]">
+              </td>
+            </tr>
+            <tr>
+              <td>[base3]</td>
+              <td>
+                <input class="form-input input-sm" type="date" property="date3" mv-mode="edit" mv-default="[checked_date_daymonthyear]">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" property="position3" mv-default="0">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" min="300" property="price3" mv-default="[spot3]">
+              </td>
+            </tr>
+            <tr>
+              <td>[base4]</td>
+              <td>
+                <input class="form-input input-sm" type="date" property="date4" mv-mode="edit" mv-default="[checked_date_daymonthyear]">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" property="position4" mv-default="0">
+              </td>
+              <td>
+                <input class="form-input input-sm" type="text" min="300" property="price4" mv-default="[spot4]">
+              </td>
+            </tr>
+          </table>
+          <div class="columns">
+            <div class="column col-3">
+              <select class="form-select select-sm" id="currencies" property="currency" mv-default="EUR"></select>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="columns">
-      <div class="column col-3">
-        <ul class="tab tab-block">
-          <li class="tab-item active"><a href="#">Summary</a></li>
-          <li class="tab-item"><a href="#">Holdings</a></li>
-          <li class="tab-item"><a href="#">Edit</a></li>
-        </ul>
+    <div class="container">
+      <h4>News</h4>
+      <div id="feed5"></div>
+      <div id="feed10" class="more-news" style="display:none"></div>
+      <br>
+
+      <div class="columns">
+        <div class="column col-3">
+          <a href="#" id="toggleFeed">
+            Show more news
+          </a>
+        </div>
+        <div class="column col-3">
+          <select class="form-select select-sm" id="feeds" property="feed"></select>
+        </div>
       </div>
     </div>
-    <div class="columns">
-      <div id="Summary" class="section">
-        <table class="table table-scroll">
-          <tr>
-            <th>Symbol</th>
-            <th>Last Price<br>Time</th>
-            <th>2 Day Performance</th>
-            <th>%Change<br>Day Change</th>
-            <th>Volume<br>30 Day Average</th>
-            <th>52 Week Range</th>
-          </tr>
-          <tr>
-            <td><select class="form-select select-sm" id="bases" property="base" mv-default="BTC"></select><br><select class="form-select select-sm" id="currencies" property="currency" mv-default="EUR"></select></td>
-            <td><b>[spot]</b><br>[checked_date]</td>
-            <td>
-              <div id="graphPerf2d"></div>
-            </td>
-            <td class="[iff(spot>open1d, 'text-success', 'text-error')]"><b>[(spot/open1d-1)*100]%</b><br>[spot-open1d]</td>
-            <td><b>[vol1d]</b><br>[avg_vol30d]</td>
-            <td>
-              <meter class="meter" property="range52w" min="[min52w]" value="[spot]" max="[max52w]" datatype="number"></meter>
-              <br><small>[min52w]</small> - <small>[max52w]</small>
-            </td>
-          </tr>
-        </table>
-      </div>
 
-      <div id="Holdings" class="section" style="display:none">
-        <table class="table table-scroll">
-          <tr>
-            <th>Symbol</th>
-            <th>Last Price<br>Time</th>
-            <th>% Change<br>Net Change</th>
-            <th>Day Gain<br>([currency])</th>
-            <th>Positions</th>
-            <th>Cost<br>Avg Price</th>
-            <th>Net Gain<br>([currency])</th>
-            <th>Value<br>([currency])</th>
-          </tr>
-          <tr>
-            <td><b>[base]-[currency]</b><br>.</td>
-            <td><b>[spot]</b><br>[checked_date]</td>
-            <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
-            <td class="[iff(gain1d>0, 'text-success', 'text-error')]"><b>[gain1d]</b><br>.</td>
-            <td><b>[sum(position1)]</b><br>[count(lot)] lots</td>
-            <td><b>[sum(position1*price1)]</b><br>[avg52w]</td>
-            <td class="[iff(gain_total>0, 'text-success', 'text-error')]"><b>[gain_total/(total_value-gain_total) * 100]%</b><br>[gain_total]</td>
-            <td><b>[total_value]</b><br>.</td>
-          </tr>
-        </table>
-      </div>
-
-      <div id="Edit" class="section" style="display:none">
-        <table class="table table-scroll">
-          <tr>
-            <th>Symbol</th>
-            <th>Date</th>
-            <th>Position</th>
-            <th>Price</th>
-            <th>Delete</th>
-          </tr>
-          <tr property="lot" mv-mode="edit" mv-multiple>
-            <td>[base]-[currency]</td>
-            <td><input class="form-input input-sm" type="date" property="date1" mv-mode="edit" mv-default="[checked_date_format]"></time></td>
-            <td><input class="form-input input-sm" type="text" property="position1" mv-default="0"/></td>
-            <td><input class="form-input input-sm" type="text" min="300" property="price1" mv-default="[spot]"/></td>
-            <td>
-              <div class="mv-item-bar mv-ui" mv-rel="lot">
-                <!-- <button title="Delete this lot" class="mv-delete"><i class="icon icon-cross mv-delete"></i></button> -->
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <h4>News</h4>
-    <div id="feed5"></div>
-    <div id="feed10" class="more-news" style="display:none"></div>
-    <br>
-
-    <div class="columns">
-      <div class="column col-3">
-        <a href="#" id="toggleFeed">Show more news</a>
-      </div>
-      <div class="column col-3">
-        <select class="form-select select-sm" id="feeds" property="feed"></select>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div>
-      <div class="fb-like" data-href="https://mycaule.github.io/portfolio" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div>
-    </div>
-    <div>
-      <a href="https://github.com/mycaule/portfolio"><img src="img/GitHub_Logo.png" height="20" alt="GitHub"></a>
+    <div class="container">
+      <h4>Benchmark</h4>
     </div>
 
-    &copy; 2018 Michel Hua
-  </div>
+    <div class="container">
+      <div>
+        <a href="https://github.com/mycaule/portfolio">
+          <img src="img/GitHub_Logo.png" height="20" alt="GitHub">
+        </a>
+      </div>
+      &copy; 2018 Michel Hua
+    </div>
 
-  <script src="https://cdn.rawgit.com/mycaule/mavo-light/master/dist/0.1.5-light/mavo.min.js"></script>
-  <!-- <script src="../mavo-light/dist/mavo.js"></script> -->
-  <script src="dist/app.js"></script>
-</body>
+    <script src="https://cdn.rawgit.com/mycaule/mavo-light/master/dist/0.1.5-light/mavo.min.js"></script>
+    <script src="dist/app.js"></script>
+  </body>
 </html>
