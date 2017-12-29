@@ -13,7 +13,7 @@ test('products', async t => {
 
 test('candles', async t => {
   const result = await gdax.candles()
-  t.is(result.length, 401)
+  t.is(result.length, 30)
 })
 
 test('ticker', async t => {

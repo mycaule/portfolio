@@ -1,13 +1,20 @@
 <template>
   <div id="vue">
     <h1>Hello, {{ framework }}!</h1>
+    <pre>
+    {{ coinbase }}
+    </pre>
   </div>
 </template>
 
 <script>
+  import coinbase from '../services/coinbase'
   export default {
     data: () => {
-      return { framework: "Vue" }
+      return {
+        coinbase: coinbase.reference(),
+        framework: "Vue"
+      }
     }
   }
 </script>
