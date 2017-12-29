@@ -4,6 +4,7 @@
 import {parse, format, startOfDay, subDays, differenceInSeconds} from 'date-fns'
 import coinbase from './services/coinbase'
 import gdax from './services/gdax'
+import blockchain from './services/blockchain-info'
 import charts from './modules/charts'
 import feed from './modules/feed'
 import changes from './modules/changes'
@@ -83,6 +84,12 @@ const check = () => {
       $(`meta[property='avg_vol30d${i}']`).content = 'N/A'
     })
   }
+
+  blockchain.users().then(res => {
+    const data = res.slice(-3).reverse()
+    $(`meta[property='users']`).content = data.length > 0 ? (data[0].count / 10e6).toFixed(2) : 'N/A'
+    $(`meta[property='users_gain1d']`).content = data.length > 1 ? ((data[0].count - data[1].count) / 10e3).toFixed(2) : 'N/A'
+  })
 }
 
 const initDOM = (refCoins, refFeeds) => {
