@@ -49,7 +49,6 @@ const check = () => {
         const prices52w = res.prices.map(_ => parseFloat(_.price, 'us'))
         $(`meta[property='min52w${i}']`).content = Math.min(...prices52w)
         $(`meta[property='max52w${i}']`).content = Math.max(...prices52w)
-        $(`meter[property='range52w${i}']`).value = spot
       })
 
       const now = new Date()

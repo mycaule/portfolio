@@ -26,10 +26,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
     "jsep": "^0.3.3",
-    "node-sass": "^4.7.2",
     "parcel-bundler": "^1.2.0",
     "parcel-plugin-vue": "^1.4.0",
-    "postcss-modules": "^1.1.0",
     "xo": "^0.18.2"
   },
   "xo": {

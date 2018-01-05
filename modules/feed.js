@@ -23,10 +23,6 @@ const websites = [
     value: 'https://www.reddit.com/r/Ethereum.rss',
     original: 'https://www.reddit.com/r/Ethereum'
   }, {
-    text: '/r/BCash',
-    value: 'https://www.reddit.com/r/BCash.rss',
-    original: 'https://www.reddit.com/r/BCash'
-  }, {
     text: 'Coindesk',
     value: 'https://feeds.feedburner.com/CoinDesk',
     original: 'https://www.coindesk.com'
@@ -34,6 +30,10 @@ const websites = [
     text: 'BitcoinCore',
     value: 'https://bitcoincore.org/en/rss.xml',
     original: 'https://bitcoincore.org/'
+  }, {
+    text: 'Coincap',
+    value: 'https://news.coincap.io/feed',
+    original: 'https://news.coincap.io/'
   }]
 
 const toggleFeed = () => {

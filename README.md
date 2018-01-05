@@ -48,8 +48,7 @@ Regenerate the build and deploy to GitHub pages.
 
 ### Roadmap
 
-- [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance)
-- [ ] Simulate trading strategies (like [exponential moving average](https://github.com/pirate/bitcoin-trader))
+- [ ] Add stock exchange data for Benchmark [Google Finance](https://github.com/pilwon/node-google-finance), [Yahoo Finance](https://github.com/pilwon/node-yahoo-finance) : NASDAQ, AMD, NVIDIA
 - [ ] Migrate to Vue.js
 
 ### License

@@ -1,27 +1,31 @@
 /* eslint-disable no-new */
 
 import Vue from 'vue/dist/vue'
-import App from './app.vue'
-// Import Newsfeed from './newsfeed.vue'
+import Watchlist from './watchlist.vue'
+import Newsfeed from './newsfeed.vue'
+import Benchmark from './benchmark.vue'
 
-const app = window.addEventListener('load', () => {
-  // New Vue({
-  //   el: '#newsfeed',
-  //   name: Newsfeed,
-  //   components: {Newsfeed},
-  //   template: `<Newsfeed />`
-  // })
+new Vue({
+  el: '#watchlist',
+  name: Watchlist,
+  components: {Watchlist},
+  template: `<Watchlist />`
+})
 
-  new Vue({
-    el: '#vueapp',
-    name: App,
-    components: {App},
-    template: `<App />`
-  })
+new Vue({
+  el: '#newsfeed',
+  name: Newsfeed,
+  components: {Newsfeed},
+  template: `<Newsfeed />`
+})
+
+new Vue({
+  el: '#benchmark',
+  name: Benchmark,
+  components: {Benchmark},
+  template: `<Benchmark />`
 })
 
 if (module.hot) {
   module.hot.accept()
 }
-
-export default app

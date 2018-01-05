@@ -1,6 +1,14 @@
 <template>
-  <div id="newsfeed">
-    <pre>{{ websites }}</pre>
+  <div class="container" id="newsfeed">
+    <h4>News</h4>
+    <!-- <pre>{{ websites }}</pre> -->
+    <select class="form-select select-sm" v-model="feed">
+      <option v-for="w in websites" v-bind:value="w.value">
+        {{ w.text }}
+      </option>
+    </select>
+
+    <span>Selected: {{ feed }}</span>
 
     <pre>{{ entries }}</pre>
   </div>
@@ -47,15 +55,10 @@
       // const res = rss2json.convert(websites[0].value)
 
       return {
-        websites
+        websites,
+        feed: 'https://www.reddit.com/r/Bitcoin.rss'
         // entries: res.items
       }
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  h1 {
-    color: #05ede1;
-  }
-</style>
