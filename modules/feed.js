@@ -23,6 +23,14 @@ const websites = [
     value: 'https://www.reddit.com/r/Ethereum.rss',
     original: 'https://www.reddit.com/r/Ethereum'
   }, {
+    text: '/r/EthTrader',
+    value: 'https://www.reddit.com/r/ethtrader.rss',
+    original: 'https://www.reddit.com/r/ethtrader'
+  }, {
+    text: '/r/IcoCrypto',
+    value: 'https://www.reddit.com/r/icocrypto.rss',
+    original: 'https://www.reddit.com/r/icocrypto'
+  }, {
     text: 'Coindesk',
     value: 'https://feeds.feedburner.com/CoinDesk',
     original: 'https://www.coindesk.com'
