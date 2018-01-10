@@ -66,6 +66,9 @@
     <meta property="gain_total2" content="[position2 * (spot2 - price2)]">
     <meta property="gain_total3" content="[position3 * (spot3 - price3)]">
     <meta property="gain_total4" content="[position4 * (spot4 - price4)]">
+    <meta property="bench_bitcoin">
+    <meta property="bench_bitcoin_change">
+    <meta property="top_altcoins">
 
     <div class="container">
       <h4>Watchlist</h4>
@@ -510,18 +513,14 @@
           <td class="text-success"><i class="icon icon-upward"></i> [users_gain1d/users/10]%</td>
         </tr>
         <tr>
-          <td>Bitcoin</td>
+          <td>Bitcoin Cap.</td>
+          <td>[bench_bitcoin]</td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td class="[iff(bench_bitcoin_change>0, 'text-success', 'text-error')]"><i class="icon [iff(bench_bitcoin_change>0, 'icon-upward', 'icon-downward')]"></i> [bench_bitcoin_change] %</td>
         </tr>
         <tr>
-          <td>Altcoins</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>Altcoins Cap.</td>
+          <td>[top_altcoins]</td>
         </tr>
       </table>
     </div>
