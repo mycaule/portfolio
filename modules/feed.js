@@ -39,9 +39,9 @@ const websites = [
     value: 'https://bitcoincore.org/en/rss.xml',
     original: 'https://bitcoincore.org/'
   }, {
-    text: 'Coincap',
-    value: 'https://news.coincap.io/feed',
-    original: 'https://news.coincap.io/'
+    text: 'Ethereum.org',
+    value: 'https://blog.ethereum.org/feed',
+    original: 'https://blog.ethereum.org'
   }]
 
 const toggleFeed = () => {
