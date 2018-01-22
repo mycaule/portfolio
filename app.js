@@ -93,7 +93,7 @@ const check = () => {
 
   coincap.front().then(res => {
     const dataBit = `${res[0].long} ${(res[0].mktcap / 10e9).toFixed(2)} B`
-    const dataAlt = res.slice(1, 4).map(_ => `${_.long} ${(_.mktcap / 10e9).toFixed(2)} B (${_.cap24hrChange}%)`).join(' - ')
+    const dataAlt = res.slice(1, 3).map(_ => `${_.long} ${(_.mktcap / 10e9).toFixed(2)} B (${_.cap24hrChange}%)`).join(' - ')
     $(`meta[property='bench_bitcoin']`).content = dataBit
     $(`meta[property='bench_bitcoin_change']`).content = res[0].cap24hrChange
     $(`meta[property='top_altcoins']`).content = dataAlt

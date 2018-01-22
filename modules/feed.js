@@ -15,17 +15,9 @@ const websites = [
     value: 'https://www.reddit.com/r/Bitcoin.rss',
     original: 'https://www.reddit.com/r/Bitcoin'
   }, {
-    text: '/r/Litecoin',
-    value: 'https://www.reddit.com/r/Litecoin.rss',
-    original: 'https://www.reddit.com/r/Litecoin'
-  }, {
     text: '/r/Ethereum',
     value: 'https://www.reddit.com/r/Ethereum.rss',
     original: 'https://www.reddit.com/r/Ethereum'
-  }, {
-    text: '/r/EthTrader',
-    value: 'https://www.reddit.com/r/ethtrader.rss',
-    original: 'https://www.reddit.com/r/ethtrader'
   }, {
     text: '/r/IcoCrypto',
     value: 'https://www.reddit.com/r/icocrypto.rss',
