@@ -16,7 +16,7 @@ const RSS = struct({
     thumbnail: 'string',
     description: 'string',
     content: 'string',
-    enclosure: ['string'],
+    enclosure: 'object',
     categories: ['string']
   }]
 })
@@ -26,10 +26,11 @@ const rss2json = axios.create({
   timeout: 3000
 })
 
-const convert = rss_url =>
+const convert = (rss_url, api_key = 'vxpi1cepzbxaynyujtsmcihuqgorwqp06demjtah') =>
   rss2json.get('/api.json', {
     params: {
-      rss_url
+      rss_url,
+      api_key
     }
   }).then(_ => RSS(_.data))
 
