@@ -27,6 +27,10 @@ const websites = [
     value: 'https://feeds.feedburner.com/CoinDesk',
     original: 'https://www.coindesk.com'
   }, {
+    text: 'Digital Money',
+    value: 'https://www.forbes.com/digital-money/feed2',
+    original: 'https://www.forbes.com/digital-mone'
+  }, {
     text: 'BitcoinCore',
     value: 'https://bitcoincore.org/en/rss.xml',
     original: 'https://bitcoincore.org/'
