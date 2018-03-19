@@ -25,6 +25,7 @@ const Spots = struct([{
 }])
 
 const Prices = struct({
+  base: Base,
   currency: Currency,
   prices: [{
     price: Amount,
