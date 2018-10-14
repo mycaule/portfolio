@@ -53,10 +53,10 @@ const check = () => {
       })
 
       const now = new Date()
-      $(`meta[property='checked_time']`).content = format(now, 'H:mm:ss')
-      $(`meta[property='checked_time_hourminute']`).content = format(now, 'H:mm')
-      $(`meta[property='checked_date']`).content = format(now, 'MM/DD/YYYY')
-      $(`meta[property='checked_date_daymonthyear']`).content = format(now, 'YYYY-MM-DD')
+      $('meta[property=\'checked_time\']').content = format(now, 'H:mm:ss')
+      $('meta[property=\'checked_time_hourminute\']').content = format(now, 'H:mm')
+      $('meta[property=\'checked_date\']').content = format(now, 'MM/DD/YYYY')
+      $('meta[property=\'checked_date_daymonthyear\']').content = format(now, 'YYYY-MM-DD')
     })
 
     coinbase.historic('week', selBase, selCurrency).then(res => {
@@ -87,16 +87,16 @@ const check = () => {
 
   blockchain.users().then(res => {
     const data = res.slice(-3).reverse()
-    $(`meta[property='users']`).content = data.length > 0 ? (data[0].count / 10e6).toFixed(2) : 'N/A'
-    $(`meta[property='users_gain1d']`).content = data.length > 1 ? ((data[0].count - data[1].count) / 10e3).toFixed(2) : 'N/A'
+    $('meta[property=\'users\']').content = data.length > 0 ? (data[0].count / 10e6).toFixed(2) : 'N/A'
+    $('meta[property=\'users_gain1d\']').content = data.length > 1 ? ((data[0].count - data[1].count) / 10e3).toFixed(2) : 'N/A'
   })
 
   coincap.front().then(res => {
     const dataBit = `${res[0].long} ${(res[0].mktcap / 10e9).toFixed(2)} B`
     const dataAlt = res.slice(1, 3).map(_ => `${_.long} ${(_.mktcap / 10e9).toFixed(2)} B (${_.cap24hrChange}%)`).join(' - ')
-    $(`meta[property='bench_bitcoin']`).content = dataBit
-    $(`meta[property='bench_bitcoin_change']`).content = res[0].cap24hrChange
-    $(`meta[property='top_altcoins']`).content = dataAlt
+    $('meta[property=\'bench_bitcoin\']').content = dataBit
+    $('meta[property=\'bench_bitcoin_change\']').content = res[0].cap24hrChange
+    $('meta[property=\'top_altcoins\']').content = dataAlt
   })
 }
 
