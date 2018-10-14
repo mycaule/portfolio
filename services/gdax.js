@@ -9,10 +9,10 @@ const gdax = axios.create({
   baseURL: 'https://api.gdax.com'
 })
 
-const Base = struct.enum(['BTC', 'ETH', 'LTC', 'BCH'])
+const Base = struct.enum(['BTC', 'ETH', 'LTC', 'BCH', 'ETC', 'ZRX'])
 const Currency = struct.enum(['EUR', 'USD'])
 
-const ProductId = struct.enum(['BCH-USD', 'BTC-EUR', 'BTC-GBP', 'BTC-USD', 'ETH-BTC', 'ETH-EUR', 'ETH-USD', 'LTC-BTC', 'LTC-EUR', 'LTC-USD'])
+const ProductId = struct.enum(['BCH-BTC', 'BCH-EUR', 'BCH-USD', 'BCH-GBP', 'BTC-EUR', 'BTC-GBP', 'BTC-USD', 'ETC-BTC', 'ETC-EUR', 'ETC-USD', 'ETC-GBP', 'ETH-BTC', 'ETH-EUR', 'ETH-USD', 'ETH-GBP', 'LTC-BTC', 'LTC-EUR', 'LTC-USD', 'LTC-GBP', 'ZRX-BTC', 'ZRX-EUR', 'ZRX-USD'])
 
 const RawCandles = struct([
   ['number', 'number', 'number', 'number', 'number', 'number']
