@@ -38,7 +38,8 @@ const websites = [
     text: 'Ethereum.org',
     value: 'https://blog.ethereum.org/feed',
     original: 'https://blog.ethereum.org'
-  }]
+  }
+]
 
 const toggleFeed = () => {
   const section = document.getElementById('feed10')
@@ -55,7 +56,7 @@ const toggleFeed = () => {
   moreNews.textContent = `Show ${word} news`
 }
 
-moreNews.onclick = () => toggleFeed()
+moreNews.addEventListener('click', () => toggleFeed())
 
 const addResults = (entries, containerId) => {
   const container = document.getElementById(containerId)

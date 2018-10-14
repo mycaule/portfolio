@@ -74,7 +74,7 @@ const ticker = (b = 'BTC', c = 'EUR') =>
   new Promise((resolve, reject) => {
     const ws = new WebSocket('wss://ws-feed.gdax.com')
 
-    ws.onopen = () => {
+    ws.addEventListener('open', () => {
       try {
         const msg = {
           type: 'subscribe',
@@ -85,23 +85,23 @@ const ticker = (b = 'BTC', c = 'EUR') =>
         }
 
         ws.send(JSON.stringify(msg))
-      } catch (err) {
-        reject(err)
+      } catch (error) {
+        reject(error)
       }
-    }
+    })
 
-    ws.onclose = () => console.log('gdax', 'disconnect')
+    ws.addEventListener('close', () => console.log('gdax', 'disconnect'))
 
-    ws.onmessage = msg => {
+    ws.addEventListener('message', msg => {
       const data = struct.union([Ticker, Subscriptions])(JSON.parse(msg.data))
 
       if (data.type === 'ticker') {
         ws.close()
         resolve(data)
       }
-    }
+    })
 
-    ws.onerror = err => reject(err)
+    ws.addEventListener('error', err => reject(err))
   })
 
 export default {products, candles, ticker}

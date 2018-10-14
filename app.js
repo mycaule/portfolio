@@ -26,14 +26,14 @@ const openTab = sectionName => {
 const tabItems = document.getElementsByClassName('tab-item')
 
 for (let i = 0; i < tabItems.length; i++) {
-  tabItems[i].onclick = () => {
+  tabItems[i].addEventListener('click', () => {
     for (let j = 0; j < tabItems.length; j++) {
       tabItems[j].classList.remove('active')
     }
 
     tabItems[i].classList.toggle('active')
     openTab(tabItems[i].innerText.trim())
-  }
+  })
 }
 
 const check = () => {
