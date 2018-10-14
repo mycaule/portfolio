@@ -4,7 +4,7 @@ import coinbase from './coinbase'
 
 test('spot', async t => {
   const result = await coinbase.spot()
-  t.is(result.length, 7)
+  t.is(result.length, 8)
 })
 
 test('historic', async t => {
@@ -14,6 +14,6 @@ test('historic', async t => {
 
 test('reference', t => {
   const ref = coinbase.reference()
-  t.is(ref.bases.length, 7)
+  t.is(ref.bases.length, 8)
   t.is(ref.currencies.length, 2)
 })
