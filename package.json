@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/mycaule/portfolio#readme",
   "devDependencies": {
-    "autoprefixer": "^7.2.3",
-    "ava": "^0.24.0",
+    "autoprefixer": "^9.2.0",
+    "ava": "^0.25.0",
     "babel-plugin-transform-regenerator": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
     "parcel-bundler": "^1.4.1",
-    "xo": "^0.19.0"
+    "xo": "^0.23.0"
   },
   "xo": {
     "space": true,
@@ -49,10 +49,10 @@
   "dependencies": {
     "axios": "^0.18.0",
     "date-fns": "^1.29.0",
-    "echarts": "^4.0.4",
-    "superstruct": "^0.5.1",
+    "echarts": "^4.1.0",
+    "superstruct": "^0.6.0",
     "voca": "^1.4.0",
-    "ws": "^5.0.0"
+    "ws": "^6.1.0"
   },
   "optionalDependencies": {
     "bufferutil": "^3.0.3",
