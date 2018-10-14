@@ -26,7 +26,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-runtime": "^6.26.0",
     "parcel-bundler": "^1.4.1",
-    "xo": "^0.21.0"
+    "xo": "^0.20.0"
   },
   "xo": {
     "space": true,
