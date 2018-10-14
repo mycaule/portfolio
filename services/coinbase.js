@@ -33,7 +33,7 @@ const Prices = struct({
   }]
 })
 
-const spot = (c = `EUR`) => coinbase.get(`/prices/${Currency(c)}/spot`).then(resp => Spots(resp.data.data))
+const spot = (c = 'EUR') => coinbase.get(`/prices/${Currency(c)}/spot`).then(resp => Spots(resp.data.data))
 
 const historic = (p = 'year', b = 'BTC', c = 'EUR') =>
   coinbase.get(`/prices/${Base(b)}-${Currency(c)}/historic`, {
